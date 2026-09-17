@@ -7,3 +7,4 @@ A website of the Hitotoki Collective, an art project born in Switzerland, bred i
 ### Technical
 
 - [Requirements](./docs/technical/requirements.md).
+- [Archive Media Manifest Schema](./docs/technical/archive-media-schema.md) (draft).

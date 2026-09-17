@@ -1,0 +1,5 @@
+[submodule "src/content/archive"]
+	path = src/content/archive
+	url = https://github.com/hitotoki-collective/archive.git
+	branch = main
+	shallow = true
