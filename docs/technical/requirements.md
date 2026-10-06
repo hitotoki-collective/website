@@ -84,15 +84,18 @@
 
 ### Archive checkout
 
-The archive stores performance video in Git LFS. The video directories total roughly
+The archive stores performance video in Git LFS. The video files total roughly
 4 GB, which exceeds what a build needs and what the Cloudflare Pages build environment
 will tolerate.
 
 - The archive MUST NOT be checked out with a plain `git submodule update --init`.
   Checkouts MUST go through `scripts/checkout-content.sh`, which sets
   `GIT_LFS_SKIP_SMUDGE=1`, applies a sparse-checkout excluding
-  `performances/*/video/` and `tmp/`, and then fetches only the image LFS objects.
-- The resulting working tree is approximately 4 MB.
+  `performances/*/*.mp4` and `tmp/`, and then fetches only the image LFS objects.
+  Performance folders are flat (`performances/PRF-<NN>/`, every file prefixed with
+  that name), so the exclusion is by extension, not by subfolder.
+- The resulting working tree is approximately 250 MB, almost all of it the stills,
+  which are 4K frames of 5–7 MB each.
 - CI and Cloudflare Pages MUST set `GIT_LFS_SKIP_SMUDGE=1` in the build environment so
   that any automatic submodule clone performed before the build command does not smudge
   LFS media, and MUST run `scripts/checkout-content.sh` as the first build step.

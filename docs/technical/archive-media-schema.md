@@ -6,21 +6,24 @@ It must be agreed and merged upstream before the website can depend on it.
 
 ## Why a separate file
 
-`MANIFEST.md` is hand-written editorial prose — provenance narrative, shot lists,
+`PRF-<NN>-MANIFEST.md` is hand-written editorial prose — provenance narrative, shot lists,
 subtitle caveats. Media identifiers are the opposite: machine-generated on upload,
 rewritten whenever an asset is re-ingested, and needing strict validation.
 
-Putting identifiers in `MANIFEST.md` means upload tooling rewrites a prose document
+Putting identifiers in the manifest means upload tooling rewrites a prose document
 it cannot safely parse. So media identifiers go in a sibling file:
 
 ```
-performances/PERF-01-JP-KYO/
-  MANIFEST.md      # prose, human-authored, unchanged
-  media.yaml       # identifiers, tool-maintained, schema-validated
+performances/PRF-01/
+  PRF-01-MANIFEST.md      # prose, human-authored, unchanged
+  PRF-01-media.yaml       # identifiers, tool-maintained, schema-validated
+  PRF-01-VID-00.mp4       # media sits beside them; the folder is flat
+  ...
 ```
 
-`MANIFEST.md` gains one line under `## Links` pointing at `media.yaml`. Nothing else
-in it changes.
+The archive prefixes every file with its folder name, so the sidecar is
+`PRF-<NN>-media.yaml`. The manifest gains one line under `## Links` pointing at it.
+Nothing else in it changes.
 
 ## Storage placement
 
@@ -28,7 +31,7 @@ Per the decision to use Cloudflare Stream for the larger videos and R2 for the o
 
 | Asset class | Size range | Stream | R2 |
 | --- | --- | --- | --- |
-| Masters (`VID-00.mp4`) | 950 MB – 2.8 GB | delivery | preservation |
+| Masters (`PRF-<NN>-VID-00.mp4`) | 950 MB – 2.8 GB | delivery | preservation |
 | Segments (`*-SEG-*`) | 24 – 36 MB | — | delivery |
 | Montages (`*-MON-*`) | 7.7 – 59 MB | — | delivery |
 
@@ -45,10 +48,10 @@ delivery, and do not need adaptive bitrate.
 
 ```yaml
 schemaVersion: 1          # integer; bump on breaking change
-performance: PERF-01-JP-KYO   # must equal the containing directory name
+performance: PRF-01       # must equal the containing directory name
 
 assets:
-  - id: VID-00                      # stable; the filename stem, no extension
+  - id: VID-00                      # stable; the filename stem after the PRF-<NN>- prefix
     kind: source                    # source | segment | montage
     aspect: 16x9                    # 16x9 | 9x16
     derivedFrom: null               # asset id, or null for source material
@@ -65,7 +68,7 @@ assets:
     storage:
       r2:
         bucket: hitotoki-archive
-        key: PERF-01-JP-KYO/video/VID-00.mp4
+        key: PRF-01/PRF-01-VID-00.mp4
         class: preservation         # preservation | delivery
         public: false
       stream:
@@ -74,14 +77,14 @@ assets:
         class: delivery
         readyToStream: true
       lfs:
-        path: video/VID-00.mp4      # present only until the LFS export runs
+        path: PRF-01-VID-00.mp4     # present only until the LFS export runs
         class: preservation
 
     # Optional presentation metadata.
-    poster: images/IMG-00.jpeg      # repo-relative, or null
+    poster: PRF-01-IMG-00.jpeg      # relative to the performance folder, or null
     subtitles:
       - lang: en
-        path: subtitles/VID-00-SUB-en.vtt
+        path: PRF-01-VID-00-SUB-en.vtt
         kind: ocr                   # ocr | translated | combined | authored
         proofed: false
 
@@ -105,7 +108,7 @@ assets:
     storage:
       r2:
         bucket: hitotoki-archive
-        key: PERF-01-JP-KYO/video/VID-00-SEG-01-16x9.mp4
+        key: PRF-01/PRF-01-VID-00-SEG-01-16x9.mp4
         class: delivery
         public: true
     poster: null
@@ -116,7 +119,7 @@ assets:
 
 ### The supplied-asset case
 
-`PERF-02`'s `MON-01` came from a subtitle-free source the archive did not produce and
+`PRF-02`'s `MON-01` came from a subtitle-free source the archive did not produce and
 cannot regenerate. It is the reason `supplied` and `regenerable` are separate fields —
 it is a montage, it is not a slice of the master, and losing it means losing it:
 
@@ -136,7 +139,7 @@ is no master to fall back on.
 ### Unstored excerpts
 
 The manifests list reviewed-but-unkept excerpts by timecode. Those have no file and no
-identifier, so they do not appear in `media.yaml`. They stay in `MANIFEST.md` prose. An
+identifier, so they do not appear in `media.yaml`. They stay in the manifest's prose. An
 entry in `media.yaml` means a file exists somewhere.
 
 ## Validation
@@ -214,7 +217,7 @@ const asset = z
 export const mediaManifest = z
   .object({
     schemaVersion: z.literal(1),
-    performance: z.string().regex(/^PERF-\d{2}-[A-Z]{2}-[A-Z]{3}$/),
+    performance: z.string().regex(/^PRF-\d{2}$/),
     assets: z.array(asset).min(1),
   })
   .superRefine((m, ctx) => {

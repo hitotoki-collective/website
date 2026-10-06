@@ -3,11 +3,12 @@ set -euo pipefail
 
 # Check out the content archive submodule without its Git LFS video objects.
 #
-# The archive repository stores performance video in Git LFS. Those directories
+# The archive repository stores performance video in Git LFS. The video files
 # total roughly 4 GB (a single master file accounts for 2.8 GB of it), which is
-# far more than a build needs and more than Cloudflare Pages will tolerate. This
-# script checks out manifests, texts, quotes, subtitles and images, and leaves
-# the video behind.
+# far more than a build needs and more than Cloudflare Pages will tolerate. Each
+# performance folder is flat, so video is excluded by extension: this script
+# checks out manifests, texts, quotes, subtitles and images, and leaves the
+# .mp4 files behind.
 #
 # Run from the repository root.
 
@@ -23,7 +24,7 @@ git submodule update --init --depth 1 "$SUBMODULE_PATH"
 git -C "$SUBMODULE_PATH" sparse-checkout set --no-cone \
   '/*' \
   '!/tmp/' \
-  '!/performances/*/video/'
+  '!/performances/*/*.mp4'
 
 # Hydrate only the image objects. Everything else the build reads is plain text.
-git -C "$SUBMODULE_PATH" lfs pull --include="performances/*/images/**"
+git -C "$SUBMODULE_PATH" lfs pull --include="performances/*/*.jpeg"
