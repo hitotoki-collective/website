@@ -23,7 +23,8 @@ pnpm run format
 pnpm run test:unit        # vitest (watch); `pnpm vitest run` for one pass
 pnpm vitest run --project server            # node-only tests, fast
 pnpm vitest run src/lib/server/archive/manifest.spec.ts  # single file
-pnpm run test:e2e         # playwright; builds and serves the preview itself
+pnpm run test:e2e         # playwright: routes + axe-core WCAG 2.2 AA on en/ja/ar; reuses a preview on :4173 locally
+pnpm exec playwright test src/routes/a11y.e2e.ts   # accessibility suite alone
 pnpm exec playwright install chromium        # once per machine
 ```
 
@@ -35,6 +36,7 @@ Vitest has two projects: `server` (node, `*.spec.ts`) and `client` (browser via 
 - **Locale tags are BCP 47 as written in the requirements**, including `zh-Hans` (the `sv` scaffold lowercased it; `project.inlang/settings.json` and `messages/zh-Hans.json` were corrected). `src/lib/i18n/locales.spec.ts` guards the set.
 - **`src/lib/paraglide/` is generated** by the Vite plugin and gitignored; `tsconfig.json` excludes it from `svelte-check` because its Cloudflare `Request` types clash. Run a build or dev once before `check` on a fresh clone.
 - **`cookie` is publicly hoisted** in `pnpm-workspace.yaml`: SvelteKit externalises it from the server output and Node otherwise resolves whatever `cookie` sits above the project.
+- CI (`.github/workflows/ci.yml`) runs `scripts/checkout-content.sh` with `GIT_LFS_SKIP_SMUDGE=1`, then gen, build, check, lint, server unit tests and the e2e + axe suite. `src/routes/a11y.e2e.ts` is the WCAG floor the requirements demand; add new routes to its `ROUTES` list.
 - Prettier and ESLint ignore the archive submodule, `docs/`, `.claude/`, `.impeccable/`, root Markdown and `.mcp.json`; those are hand-formatted or upstream-owned.
 
 ## Specs are the source of truth
