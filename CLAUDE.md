@@ -22,7 +22,7 @@ pnpm run lint             # prettier --check && eslint
 pnpm run format
 pnpm run test:unit        # vitest (watch); `pnpm vitest run` for one pass
 pnpm vitest run --project server            # node-only tests, fast
-pnpm vitest run src/lib/i18n/locales.spec.ts # single file
+pnpm vitest run src/lib/server/archive/manifest.spec.ts  # single file
 pnpm run test:e2e         # playwright; builds and serves the preview itself
 pnpm exec playwright install chromium        # once per machine
 ```
@@ -47,6 +47,15 @@ Vitest has two projects: `server` (node, `*.spec.ts`) and `client` (browser via 
 
 - Site-authored content goes under `src/content/<type>/`, one Markdown file per locale: `<slug>.<locale>.md`. `en` is the source and authoritative; missing translations fall back to `en` with a build warning. Front matter is Zod-validated and invalid front matter fails the build.
 - UI strings: `messages/<locale>.json` (Inlang/Paraglide).
+
+### How content loading is wired
+
+- `src/lib/content/schemas.ts` — one Zod schema per collection (`pages`, `journal`). Adding a content type means adding a schema here and a `src/content/<type>/` folder; nothing else needs registering.
+- `src/lib/content/collection.ts` — pure indexing: path parsing, validation, `en` fallback, missing-translation report. No Vite, no fs; both consumers below share it.
+- `src/lib/content/report-plugin.ts` — Vite plugin registered first in `vite.config.ts`. At `buildStart` it reads the content folders with fs, throws `ContentError` on invalid front matter (fails the build) and warns once per missing translation.
+- `src/lib/server/content/index.ts` — runtime loader. `import.meta.glob` over `src/content/*/*.md` (archive excluded); MDsveX supplies each file as a component plus `metadata`. `loadEntry(type, slug, locale)` returns `{ entry, fallback, component }`.
+- `src/lib/server/archive/` — the archive submodule's view. `manifest.ts` parses `PRF-<NN>-MANIFEST.md` by heading, list and table into the Zod shape in `schema.ts`; `TODO` placeholders are dropped and the section is named in `incomplete`; `crewVerified` is false while the manifest still says the crew list is unverified OCR. `index.ts` globs manifests (raw), still filenames (keys only — never import the JPEGs) and texts, and exposes `listPerformances()` / `getPerformance(code)`. Its tests run against the real PRF-01 and PRF-02 files.
+- Everything under `src/lib/server/` is server-only; keep content loading there so the archive never reaches the client bundle.
 - `src/content/archive` is a git submodule of `hitotoki-collective/archive` (shallow, tracks `main`). It is **read-only** from this repo — changes go upstream. It has its own `CLAUDE.md` describing its layout: flat `performances/PRF-<NN>/` folders, every file prefixed with the folder name, kind codes (`IMG`, `VID`, `SEG`, `MON`, `SUB`, `QTE`, `TSC`), and a fixed-section `PRF-<NN>-MANIFEST.md`. Read it before writing code that parses the archive.
 
 ## Archive checkout (important)

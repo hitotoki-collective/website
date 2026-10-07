@@ -5,11 +5,15 @@ import { playwright } from '@vitest/browser-playwright';
 import adapter from '@sveltejs/adapter-cloudflare';
 import { sveltekit } from '@sveltejs/kit/vite';
 import inlang from './project.inlang/settings.json' with { type: 'json' };
+import { contentReport } from './src/lib/content/report-plugin.js';
 
 const LOCALES: string[] = inlang.locales;
 
 export default defineConfig({
 	plugins: [
+		// Validates site content front matter (fails the build) and warns on
+		// every missing translation before anything is compiled.
+		contentReport({ locales: LOCALES, baseLocale: inlang.baseLocale }),
 		sveltekit({
 			compilerOptions: {
 				// Force runes mode for the project, except for libraries. Can be removed in svelte 6.
