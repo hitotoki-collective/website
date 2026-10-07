@@ -4,9 +4,38 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## State of the repo
 
-Pre-implementation. There is no application code, `package.json`, build, lint or test setup yet — only specs, a checkout script and the content submodule. Do not invent commands; when scaffolding, follow the resolved stack in `docs/technical/requirements.md` (SvelteKit 2 / Svelte 5 runes, TypeScript strict, pnpm, Node >= 22 via `.nvmrc`, `@sveltejs/adapter-cloudflare`, Paraglide JS, MDsveX, Zod, Vitest, Playwright + axe-core, ESLint + Prettier, plain CSS with custom properties — no utility-class framework). Update this file with real commands once they exist.
+Freshly scaffolded, no product UI yet. Stack as resolved in `docs/technical/requirements.md`: SvelteKit 3 (Svelte 5, runes forced on for project code), TypeScript strict, pnpm, Node >= 22 (`.nvmrc` pins 24), `@sveltejs/adapter-cloudflare` targeting Pages, Paraglide JS 2, MDsveX (`.svx` and `.md` are components), Vitest, Playwright, ESLint + Prettier, plain CSS with custom properties — no utility-class framework. Zod, axe-core, Lighthouse CI and the content loader are not wired yet.
+
+There is no `svelte.config.js`: SvelteKit 3 is configured inside `sveltekit({...})` in `vite.config.ts`, alongside the Paraglide plugin and the Vitest projects.
 
 The Svelte MCP server is configured in `.mcp.json`; use it for Svelte/SvelteKit documentation and to autofix components.
+
+## Commands
+
+```bash
+pnpm install              # first run also needs: pnpm run gen (wrangler types)
+pnpm run dev
+pnpm run build            # wrangler types --check && vite build
+pnpm run preview          # wrangler pages dev on :4173
+pnpm run check            # svelte-check, strict
+pnpm run lint             # prettier --check && eslint
+pnpm run format
+pnpm run test:unit        # vitest (watch); `pnpm vitest run` for one pass
+pnpm vitest run --project server            # node-only tests, fast
+pnpm vitest run src/lib/i18n/locales.spec.ts # single file
+pnpm run test:e2e         # playwright; builds and serves the preview itself
+pnpm exec playwright install chromium        # once per machine
+```
+
+Vitest has two projects: `server` (node, `*.spec.ts`) and `client` (browser via Playwright, `*.svelte.spec.ts`). The client project currently has no tests and makes a full `vitest run` take ~10 s to exit; prefer `--project server` while that holds.
+
+## Scaffold decisions worth knowing
+
+- **Locale in every URL, `en` included.** `vite.config.ts` gives Paraglide explicit `urlPatterns` so there is no unprefixed variant; `/` redirects via `url → cookie → preferredLanguage → baseLocale`. `src/hooks.ts` de-localises for routing, `src/hooks.server.ts` sets `lang`/`dir` on `<html>`. The e2e tests in `src/routes/page.svelte.e2e.ts` pin this behaviour.
+- **Locale tags are BCP 47 as written in the requirements**, including `zh-Hans` (the `sv` scaffold lowercased it; `project.inlang/settings.json` and `messages/zh-Hans.json` were corrected). `src/lib/i18n/locales.spec.ts` guards the set.
+- **`src/lib/paraglide/` is generated** by the Vite plugin and gitignored; `tsconfig.json` excludes it from `svelte-check` because its Cloudflare `Request` types clash. Run a build or dev once before `check` on a fresh clone.
+- **`cookie` is publicly hoisted** in `pnpm-workspace.yaml`: SvelteKit externalises it from the server output and Node otherwise resolves whatever `cookie` sits above the project.
+- Prettier and ESLint ignore the archive submodule, `docs/`, `.claude/`, `.impeccable/`, root Markdown and `.mcp.json`; those are hand-formatted or upstream-owned.
 
 ## Specs are the source of truth
 

@@ -1,0 +1,10 @@
+allowBuilds:
+  workerd: true
+  esbuild: true
+
+# SvelteKit externalises `cookie` from its server output, so Node resolves it
+# from `.svelte-kit/output/server/` upwards. pnpm's strict layout keeps it out of
+# the root node_modules, and Node then finds whatever `cookie` sits higher up the
+# tree (an old CommonJS copy in ~/node_modules breaks the build). Hoist it.
+publicHoistPattern:
+  - cookie

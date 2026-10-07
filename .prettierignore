@@ -1,0 +1,27 @@
+# Package Managers
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
+bun.lock
+bun.lockb
+
+# Miscellaneous
+/static/
+
+# Upstream-owned content archive (git submodule, read-only here)
+/src/content/archive/
+
+# Specs are hand-formatted
+/docs/
+
+# Generated
+/src/lib/paraglide/
+/worker-configuration.d.ts
+
+# Agent tooling and project context, hand-formatted
+/.claude/
+/.impeccable/
+/*.md
+
+# Claude Code MCP config, kept as written
+/.mcp.json
