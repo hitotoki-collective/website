@@ -41,7 +41,7 @@
 
 | Concern         | Choice                               | Notes                                                                      |
 | --------------- | ------------------------------------ | -------------------------------------------------------------------------- |
-| Framework       | SvelteKit 2 (Svelte 5, runes)         | Plain Svelte is not sufficient — routing, SSR and prerendering are required. |
+| Framework       | SvelteKit 3 (Svelte 5, runes)         | Plain Svelte is not sufficient — routing, SSR and prerendering are required. |
 | Language        | TypeScript, `strict: true`            | No implicit `any`. `checkJs` off; no JavaScript source files.                |
 | Package manager | pnpm                                  | Lockfile committed.                                                          |
 | Node            | Current LTS (>= 22)                   | Pinned via `.nvmrc` and `engines`.                                           |
