@@ -1,0 +1,188 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-07T00:00:00Z",
+  "title": "Design System: Hitotoki Collective",
+  "extensions": {
+    "colorMeta": {
+      "vermilion": { "role": "primary", "displayName": "Vermilion", "canonical": "#a83c25", "cssVar": "--vermilion / --stamp / --focus", "tonalRamp": ["oklch(18% 0.07 32)", "oklch(28% 0.11 32)", "oklch(38% 0.14 32)", "oklch(48% 0.15 32)", "oklch(58% 0.14 32)", "oklch(70% 0.11 32)", "oklch(83% 0.07 32)", "oklch(94% 0.03 32)"] },
+      "washi": { "role": "neutral", "displayName": "Washi", "canonical": "#f5f0e6", "cssVar": "--washi / --page / --cover-ink", "tonalRamp": ["oklch(18% 0.012 85)", "oklch(30% 0.014 85)", "oklch(42% 0.016 85)", "oklch(55% 0.018 85)", "oklch(68% 0.018 85)", "oklch(80% 0.017 85)", "oklch(90% 0.016 85)", "oklch(96% 0.014 85)"] },
+      "washi-deep": { "role": "neutral", "displayName": "Washi Deep", "canonical": "#e9e1d0", "cssVar": "--washi-deep / --page-deep", "tonalRamp": ["oklch(18% 0.015 85)", "oklch(30% 0.018 85)", "oklch(42% 0.022 85)", "oklch(55% 0.026 85)", "oklch(68% 0.028 85)", "oklch(80% 0.028 85)", "oklch(88% 0.026 85)", "oklch(94% 0.022 85)"] },
+      "sumi": { "role": "neutral", "displayName": "Sumi", "canonical": "#1a1715", "cssVar": "--sumi / --ink", "tonalRamp": ["oklch(16% 0.008 60)", "oklch(26% 0.008 60)", "oklch(38% 0.008 60)", "oklch(50% 0.008 60)", "oklch(62% 0.008 60)", "oklch(74% 0.008 60)", "oklch(86% 0.008 60)", "oklch(95% 0.008 60)"] },
+      "ink-soft": { "role": "neutral", "displayName": "Ink Soft", "canonical": "#655c53", "cssVar": "--ink-soft", "tonalRamp": ["oklch(16% 0.012 70)", "oklch(26% 0.014 70)", "oklch(38% 0.016 70)", "oklch(48% 0.016 70)", "oklch(60% 0.016 70)", "oklch(72% 0.014 70)", "oklch(84% 0.012 70)", "oklch(94% 0.01 70)"] },
+      "rule": { "role": "neutral", "displayName": "Rule", "canonical": "#d6cbb6", "cssVar": "--rule", "tonalRamp": ["oklch(18% 0.02 85)", "oklch(30% 0.025 85)", "oklch(42% 0.03 85)", "oklch(55% 0.035 85)", "oklch(68% 0.035 85)", "oklch(78% 0.035 85)", "oklch(85% 0.03 85)", "oklch(94% 0.02 85)"] },
+      "crease": { "role": "neutral", "displayName": "Crease", "canonical": "color-mix(in oklab, var(--sumi) 14%, var(--washi))", "cssVar": "--crease", "tonalRamp": ["oklch(18% 0.012 80)", "oklch(30% 0.013 80)", "oklch(42% 0.014 80)", "oklch(55% 0.015 80)", "oklch(68% 0.015 80)", "oklch(78% 0.015 80)", "oklch(86% 0.014 80)", "oklch(94% 0.012 80)"] },
+      "selection": { "role": "neutral", "displayName": "Selection", "canonical": "color-mix(in oklab, var(--vermilion) 22%, var(--washi))", "cssVar": "--selection", "tonalRamp": ["oklch(18% 0.04 40)", "oklch(30% 0.05 40)", "oklch(42% 0.06 40)", "oklch(55% 0.06 40)", "oklch(68% 0.06 40)", "oklch(78% 0.05 40)", "oklch(86% 0.04 40)", "oklch(94% 0.03 40)"] },
+      "cloth": { "role": "neutral", "displayName": "Cloth", "canonical": "#1d2740", "cssVar": "--cloth / --cover (light) / --page (dark)", "tonalRamp": ["oklch(16% 0.035 265)", "oklch(24% 0.045 265)", "oklch(32% 0.055 265)", "oklch(42% 0.06 265)", "oklch(54% 0.06 265)", "oklch(68% 0.05 265)", "oklch(82% 0.035 265)", "oklch(94% 0.015 265)"] },
+      "cloth-deep": { "role": "neutral", "displayName": "Cloth Deep", "canonical": "#141b2e", "cssVar": "--cloth-deep / --cover-deep (light) / --cover (dark)", "tonalRamp": ["oklch(14% 0.035 265)", "oklch(21% 0.045 265)", "oklch(30% 0.055 265)", "oklch(40% 0.06 265)", "oklch(52% 0.06 265)", "oklch(66% 0.05 265)", "oklch(80% 0.035 265)", "oklch(93% 0.015 265)"] },
+      "cloth-night": { "role": "neutral", "displayName": "Cloth Night", "canonical": "#0d1322", "cssVar": "--cover-deep (dark)", "tonalRamp": ["oklch(12% 0.035 265)", "oklch(20% 0.045 265)", "oklch(28% 0.055 265)", "oklch(38% 0.06 265)", "oklch(50% 0.06 265)", "oklch(64% 0.05 265)", "oklch(78% 0.035 265)", "oklch(92% 0.015 265)"] },
+      "cover-ink-soft": { "role": "neutral", "displayName": "Cover Ink Soft", "canonical": "#b9bfd2", "cssVar": "--cover-ink-soft", "tonalRamp": ["oklch(16% 0.03 270)", "oklch(28% 0.035 270)", "oklch(40% 0.04 270)", "oklch(52% 0.04 270)", "oklch(64% 0.04 270)", "oklch(75% 0.035 270)", "oklch(84% 0.025 270)", "oklch(94% 0.012 270)"] },
+      "dark-ink": { "role": "neutral", "displayName": "Dark Ink (washi on cloth)", "canonical": "#ece5d8", "cssVar": "--ink (dark scheme)", "tonalRamp": ["oklch(18% 0.012 80)", "oklch(30% 0.014 80)", "oklch(42% 0.016 80)", "oklch(55% 0.018 80)", "oklch(68% 0.018 80)", "oklch(80% 0.017 80)", "oklch(88% 0.016 80)", "oklch(95% 0.014 80)"] },
+      "dark-ink-soft": { "role": "neutral", "displayName": "Dark Ink Soft", "canonical": "#aab0c4", "cssVar": "--ink-soft / --cover-ink-soft (dark scheme)", "tonalRamp": ["oklch(16% 0.03 270)", "oklch(28% 0.035 270)", "oklch(40% 0.04 270)", "oklch(52% 0.04 270)", "oklch(64% 0.04 270)", "oklch(74% 0.035 270)", "oklch(84% 0.025 270)", "oklch(94% 0.012 270)"] },
+      "dark-rule": { "role": "neutral", "displayName": "Dark Rule", "canonical": "#35415f", "cssVar": "--rule (dark scheme)", "tonalRamp": ["oklch(16% 0.035 265)", "oklch(26% 0.045 265)", "oklch(36% 0.055 265)", "oklch(46% 0.06 265)", "oklch(58% 0.06 265)", "oklch(70% 0.05 265)", "oklch(82% 0.035 265)", "oklch(94% 0.015 265)"] },
+      "dark-crease": { "role": "neutral", "displayName": "Dark Crease", "canonical": "color-mix(in oklab, white 22%, var(--cloth))", "cssVar": "--crease (dark scheme)", "tonalRamp": ["oklch(16% 0.03 265)", "oklch(26% 0.04 265)", "oklch(36% 0.045 265)", "oklch(46% 0.05 265)", "oklch(58% 0.05 265)", "oklch(70% 0.04 265)", "oklch(82% 0.03 265)", "oklch(94% 0.012 265)"] },
+      "dark-selection": { "role": "neutral", "displayName": "Dark Selection", "canonical": "color-mix(in oklab, var(--vermilion) 45%, var(--cloth))", "cssVar": "--selection (dark scheme)", "tonalRamp": ["oklch(18% 0.06 20)", "oklch(28% 0.08 20)", "oklch(38% 0.09 20)", "oklch(48% 0.09 20)", "oklch(60% 0.08 20)", "oklch(72% 0.07 20)", "oklch(84% 0.05 20)", "oklch(94% 0.025 20)"] }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "The place name on a performance page; the single largest thing on the leaf (--step-4).", "cssVar": "--font-display / --step-4" },
+      "headline": { "displayName": "Headline", "purpose": "The place name on a home leaf and base h1 (--step-3).", "cssVar": "--step-3" },
+      "title": { "displayName": "Title", "purpose": "Base h2 and the heading inside a written text (--step-2); the stamp number at 700.", "cssVar": "--step-2" },
+      "subtitle": { "displayName": "Subtitle", "purpose": "Base h3; the colophon site name at 0.04em (--step-1).", "cssVar": "--step-1" },
+      "reading": { "displayName": "Reading", "purpose": "Paragraphs of the written text and home inscription, with a Shippori drop cap on the first paragraph.", "cssVar": "--step-1" },
+      "body": { "displayName": "Body", "purpose": "Default text; p capped at --measure (66ch), text-wrap pretty, oldstyle proportional figures.", "cssVar": "--font-body / --step-0 / --leading-body / --measure" },
+      "label": { "displayName": "Label", "purpose": "Section headings in the reading column and credits aside, uppercase 0.16em in soft ink. Real h2 elements, never kickers.", "cssVar": "--step--1" },
+      "cover-title": { "displayName": "Cover Title", "purpose": "\"Hitotoki Collective\" under the seal on the closed cover only; uppercase 0.22em.", "cssVar": "--step-1" },
+      "small": { "displayName": "Small", "purpose": "Notes, stills count, stamp date, header navigation, licence line.", "cssVar": "--step--1" }
+    },
+    "typeLocaleOverrides": [
+      { "lang": "ja", "fontCjk": "Noto Serif JP" },
+      { "lang": "zh-Hans", "fontCjk": "Noto Serif SC" },
+      { "lang": "ko", "fontCjk": "Noto Serif KR" },
+      { "lang": "ar", "fontDisplay": "Noto Naskh Arabic, serif", "fontBody": "Noto Naskh Arabic, serif", "leadingBody": 1.9 },
+      { "lang": "hi", "fontDisplay": "Noto Serif Devanagari, serif", "fontBody": "Noto Serif Devanagari, serif", "leadingBody": 1.85 }
+    ],
+    "textures": [
+      { "name": "texture-page", "value": "url('src/lib/assets/textures/washi.png')", "purpose": "Tiled with --page on every washi region; generated by scripts/textures.mjs, provenance in PNG tEXt. Swaps to the brocade tile in the dark scheme." },
+      { "name": "texture-cover", "value": "url('src/lib/assets/textures/brocade.png')", "purpose": "Tiled with --cover on cloth regions: cover, header, colophon." }
+    ],
+    "shadows": [
+      { "name": "book-over-cover", "value": "0 -18px 40px -24px rgb(0 0 0 / 0.6)", "purpose": "Top edge of the page section sliding over the sticky cover on home." },
+      { "name": "leaf-crease", "value": "inset -24px 0 28px -30px rgb(0 0 0 / 0.55)", "purpose": "With border-inline-end: 1px solid var(--crease); the fold at the inline-end of every home leaf but the last." },
+      { "name": "fold-margin", "value": "inset -18px 0 22px -24px rgb(0 0 0 / 0.5)", "purpose": "With border-inline-end: 1px solid var(--crease); the gutter edge of the performance page's fold margin." },
+      { "name": "pasted-still", "value": "0 10px 24px -16px rgb(0 0 0 / 0.45)", "purpose": "Under each secondary still on a performance page; the lead still carries none." },
+      { "name": "stamp-press", "value": "0 1px 0 color-mix(in oklab, var(--stamp) 60%, black)", "purpose": "One-pixel darker vermilion edge under the stamp; impression, not elevation." },
+      { "name": "language-menu", "value": "0 10px 30px -12px rgb(0 0 0 / 0.45)", "purpose": "The only floating surface, with border: 1px solid var(--rule)." }
+    ],
+    "motion": [
+      { "name": "recede", "value": "@keyframes recede { to { opacity: 0.15; scale: 0.92; translate: 0 -6vh; filter: blur(2px); } } animation: recede linear both; animation-timeline: scroll(root block); animation-range: 0 100svh;", "purpose": "Cover seal and name recede into the cloth as the book slides over; wrapped in @supports (animation-timeline: scroll()) and prefers-reduced-motion: no-preference." },
+      { "name": "link-underline", "value": "transition: text-decoration-color 160ms ease-out", "purpose": "Underline darkens from 45% ink to full ink on hover." },
+      { "name": "fold-snap", "value": "scroll-snap-type: x mandatory; scroll-snap-align: start; scroll-padding-inline: var(--gutter); overscroll-behavior-x: contain", "purpose": "Leaves fold sideways in the reading direction; no JavaScript." },
+      { "name": "reduced-motion", "value": "@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; } }", "purpose": "Everything already open and still." }
+    ],
+    "breakpoints": [
+      { "name": "header-wrap", "value": "40rem", "purpose": "Header wraps; brand text visually hidden beside the seal." },
+      { "name": "fold-flat", "value": "48rem", "purpose": "Fold margin becomes a horizontal strip; leaves 84vw; still offsets removed." },
+      { "name": "credits-stack", "value": "64rem", "purpose": "Credits aside stacks under the reading column with a rule above." }
+    ],
+    "containers": [
+      { "name": "measure", "value": "66ch" },
+      { "name": "leaf-index", "value": "min(88vw, 56rem)" },
+      { "name": "leaf-page", "value": "84rem" },
+      { "name": "colophon", "value": "72rem" },
+      { "name": "inscription", "value": "40rem" },
+      { "name": "credits-aside", "value": "minmax(14rem, 20rem)" }
+    ],
+    "focus": { "value": "outline: 2px solid var(--focus); outline-offset: 3px; border-radius: 2px", "purpose": "Vermilion outline on every focusable element; the skip link fills vermilion." }
+  },
+  "components": [
+    {
+      "name": "Stamp",
+      "kind": "custom",
+      "refersTo": "stamp",
+      "description": "The vermilion date mark pressed in the fold margin: performance number over the locale-formatted date.",
+      "html": "<p class=\"ds-stamp\" aria-label=\"Performance 02\"><span class=\"ds-stamp-number\" aria-hidden=\"true\">02</span><time datetime=\"2025-10-01\">1 Oct 2025</time></p>",
+      "css": ".ds-stamp { display: inline-grid; justify-items: center; gap: 0.1em; margin: 0; padding: var(--space-2, 0.5rem) var(--space-3, 1rem) var(--space-3, 1rem); background: var(--stamp, #a83c25); color: var(--stamp-ink, #f5f0e6); font-family: var(--font-display, 'Shippori Mincho', serif); line-height: 1.1; border-radius: 3px; rotate: -1.5deg; white-space: nowrap; box-shadow: 0 1px 0 color-mix(in oklab, var(--stamp, #a83c25) 60%, black); } .ds-stamp-number { font-size: var(--step-2, 1.75rem); font-weight: 700; letter-spacing: 0.04em; font-variant-numeric: tabular-nums; } .ds-stamp time { font-size: var(--step--1, 0.875rem); font-variant-numeric: tabular-nums; opacity: 0.92; }"
+    },
+    {
+      "name": "Cloth Header",
+      "kind": "nav",
+      "refersTo": "cloth-header",
+      "description": "Brocade header: seal and name, section links on a hairline that fills on hover and aria-current.",
+      "html": "<header class=\"ds-cloth\"><a class=\"ds-brand\" href=\"#\"><svg width=\"28\" height=\"28\" viewBox=\"0 0 64 64\" aria-hidden=\"true\"><rect width=\"64\" height=\"64\" rx=\"4\" fill=\"#a83c25\"/><text x=\"32\" y=\"42\" text-anchor=\"middle\" font-family=\"serif\" font-size=\"28\" fill=\"#f5f0e6\">一時</text></svg><span>Hitotoki Collective</span></a><nav><ul><li><a href=\"#\" aria-current=\"page\">Performances</a></li><li><a href=\"#\">About</a></li><li><a href=\"#\">Journal</a></li></ul></nav></header>",
+      "css": ".ds-cloth { background: var(--texture-cover) var(--cover, #1d2740); color: var(--cover-ink, #f5f0e6); display: flex; align-items: center; gap: var(--space-4, 1.5rem); padding: var(--space-3, 1rem) var(--gutter, 2rem); font-family: var(--font-display, 'Shippori Mincho', serif); font-size: var(--step--1, 0.875rem); border-block-end: 1px solid color-mix(in oklab, var(--cover-ink, #f5f0e6) 14%, transparent); } .ds-brand { display: inline-flex; align-items: center; gap: var(--space-2, 0.5rem); color: inherit; text-decoration: none; margin-inline-end: auto; letter-spacing: 0.04em; } .ds-cloth ul { list-style: none; margin: 0; padding: 0; display: flex; gap: var(--space-4, 1.5rem); } .ds-cloth nav a { color: inherit; text-decoration: none; padding-block: var(--space-1, 0.25rem); border-block-end: 1px solid transparent; } .ds-cloth nav a:hover, .ds-cloth nav a[aria-current] { border-block-end-color: currentColor; } .ds-cloth a:focus-visible { outline: 2px solid var(--focus, #a83c25); outline-offset: 3px; border-radius: 2px; }"
+    },
+    {
+      "name": "Language Menu",
+      "kind": "nav",
+      "refersTo": "language-menu",
+      "description": "Native details menu on cloth; washi panel with a two-column grid of locales, the current one in vermilion.",
+      "html": "<div class=\"ds-cloth-ground\"><details class=\"ds-languages\" open><summary><span lang=\"en\">English</span></summary><ul><li><a href=\"#\" hreflang=\"en\" lang=\"en\" aria-current=\"true\">English</a></li><li><a href=\"#\" hreflang=\"ja\" lang=\"ja\">日本語</a></li><li><a href=\"#\" hreflang=\"ar\" lang=\"ar\">العربية</a></li><li><a href=\"#\" hreflang=\"fr\" lang=\"fr\">français</a></li></ul></details></div>",
+      "css": ".ds-cloth-ground { background: var(--texture-cover) var(--cover, #1d2740); color: var(--cover-ink, #f5f0e6); padding: var(--space-3, 1rem) var(--space-4, 1.5rem) 9rem; font-family: var(--font-display, 'Shippori Mincho', serif); font-size: var(--step--1, 0.875rem); } .ds-languages { position: relative; display: inline-block; } .ds-languages summary { cursor: pointer; list-style: none; padding-block: var(--space-1, 0.25rem); min-block-size: 24px; } .ds-languages summary::-webkit-details-marker { display: none; } .ds-languages summary::after { content: ''; display: inline-block; inline-size: 0.45em; block-size: 0.45em; margin-inline-start: 0.5em; border-inline-end: 1px solid currentColor; border-block-end: 1px solid currentColor; rotate: 45deg; translate: 0 -0.2em; } .ds-languages ul { position: absolute; inset-inline-start: 0; inset-block-start: calc(100% + var(--space-2, 0.5rem)); list-style: none; margin: 0; display: grid; grid-template-columns: repeat(2, max-content); gap: var(--space-1, 0.25rem) var(--space-4, 1.5rem); padding: var(--space-3, 1rem) var(--space-4, 1.5rem); background: var(--page, #f5f0e6); color: var(--ink, #1a1715); border: 1px solid var(--rule, #d6cbb6); box-shadow: 0 10px 30px -12px rgb(0 0 0 / 0.45); } .ds-languages ul a { color: inherit; text-decoration: none; } .ds-languages ul a:hover { text-decoration: underline; text-underline-offset: 0.18em; } .ds-languages ul a[aria-current] { color: var(--stamp, #a83c25); } .ds-languages a:focus-visible, .ds-languages summary:focus-visible { outline: 2px solid var(--focus, #a83c25); outline-offset: 3px; border-radius: 2px; }"
+    },
+    {
+      "name": "Text Link",
+      "kind": "button",
+      "refersTo": "cloth-nav-link",
+      "description": "There are no buttons; every action is a link with a 45%-ink hairline underline that fills on hover. Shown with the 'Open this page' and 'Open the book' variants.",
+      "html": "<div class=\"ds-page\"><p><a class=\"ds-link\" href=\"#\">Open this page</a></p></div><div class=\"ds-cover-strip\"><a class=\"ds-open\" href=\"#\">Open the book</a></div>",
+      "css": ".ds-page { background: var(--texture-page) var(--page, #f5f0e6); color: var(--ink, #1a1715); padding: var(--space-4, 1.5rem); font-family: var(--font-body, 'Noto Serif', serif); font-size: var(--step--1, 0.875rem); } .ds-page p { margin: 0; } .ds-link { color: inherit; text-decoration-color: color-mix(in oklab, currentColor 45%, transparent); text-decoration-thickness: 1px; text-underline-offset: 0.22em; transition: text-decoration-color 160ms ease-out; } .ds-link:hover { text-decoration-color: currentColor; } .ds-cover-strip { background: var(--texture-cover) var(--cover, #1d2740); padding: var(--space-4, 1.5rem); text-align: center; } .ds-open { display: inline-block; font-family: var(--font-display, 'Shippori Mincho', serif); font-size: var(--step--1, 0.875rem); letter-spacing: 0.1em; text-decoration: none; color: var(--cover-ink-soft, #b9bfd2); padding: var(--space-2, 0.5rem) var(--space-3, 1rem); border-block-end: 1px solid color-mix(in oklab, var(--cover-ink, #f5f0e6) 40%, transparent); } .ds-open:hover { color: var(--cover-ink, #f5f0e6); border-color: currentColor; } .ds-link:focus-visible, .ds-open:focus-visible { outline: 2px solid var(--focus, #a83c25); outline-offset: 3px; border-radius: 2px; }"
+    },
+    {
+      "name": "Leaf",
+      "kind": "card",
+      "refersTo": "leaf",
+      "description": "One performance in the home accordion: fold margin with stamp, place name, place line, 4:3 lead frame, artists, open link; crease at the inline end.",
+      "html": "<ol class=\"ds-leaves\"><li class=\"ds-leaf\"><article><div class=\"ds-leaf-margin\"><p class=\"ds-stamp\" aria-label=\"Performance 02\"><span class=\"ds-stamp-number\" aria-hidden=\"true\">02</span><time datetime=\"2025-10-01\">1 Oct 2025</time></p></div><div class=\"ds-leaf-body\"><h3 class=\"ds-place\"><a href=\"#\">Jingo-ji</a></h3><p class=\"ds-where\">Kyoto, Japan</p><a class=\"ds-photo\" href=\"#\" tabindex=\"-1\" aria-hidden=\"true\"></a><p class=\"ds-artists\">Taro, Yumi and Kenji</p><p class=\"ds-enter\"><a href=\"#\">Open this page</a></p></div></article></li><li class=\"ds-leaf ds-leaf-even\"><article><div class=\"ds-leaf-margin\"><p class=\"ds-stamp\" aria-label=\"Performance 01\"><span class=\"ds-stamp-number\" aria-hidden=\"true\">01</span><time datetime=\"2025-05-16\">16 May 2025</time></p></div><div class=\"ds-leaf-body\"><h3 class=\"ds-place\"><a href=\"#\">Daikaku-ji</a></h3><p class=\"ds-where\">Kyoto, Japan</p></div></article></li></ol>",
+      "css": ".ds-leaves { list-style: none; margin: 0; padding: var(--space-4, 1.5rem) var(--gutter, 2rem); display: grid; grid-auto-flow: column; grid-auto-columns: min(88vw, 36rem); overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-inline: var(--gutter, 2rem); scrollbar-width: thin; background: var(--texture-page) var(--page, #f5f0e6); color: var(--ink, #1a1715); font-family: var(--font-body, 'Noto Serif', serif); } .ds-leaf { scroll-snap-align: start; background: var(--page, #f5f0e6); border-inline-end: 1px solid var(--crease, #d8d1c5); box-shadow: inset -24px 0 28px -30px rgb(0 0 0 / 0.55); } .ds-leaf-even { background: color-mix(in oklab, var(--page, #f5f0e6) 94%, var(--page-deep, #e9e1d0)); } .ds-leaf:last-child { border-inline-end: 0; box-shadow: none; } .ds-leaf article { display: grid; grid-template-columns: var(--fold, 5rem) 1fr; gap: var(--space-4, 1.5rem); padding: var(--space-5, 2.5rem) var(--space-5, 2.5rem) var(--space-5, 2.5rem) 0; align-content: start; } .ds-leaf-margin { display: flex; justify-content: center; align-items: flex-start; padding-block-start: var(--space-2, 0.5rem); } .ds-leaf-body { min-inline-size: 0; } .ds-place { font-family: var(--font-display, 'Shippori Mincho', serif); font-size: var(--step-3, 2.4rem); font-weight: 400; line-height: 1.15; letter-spacing: -0.01em; margin: 0 0 var(--space-1, 0.25rem); text-wrap: balance; } .ds-place a { color: inherit; text-decoration: none; } .ds-place a:hover { text-decoration: underline; text-underline-offset: 0.18em; } .ds-where { color: var(--ink-soft, #655c53); margin: 0 0 var(--space-4, 1.5rem); } .ds-photo { display: block; aspect-ratio: 4 / 3; background: var(--page-deep, #e9e1d0); margin-block-end: var(--space-3, 1rem); } .ds-artists { font-family: var(--font-display, 'Shippori Mincho', serif); margin: 0 0 var(--space-2, 0.5rem); } .ds-enter { margin: 0; font-size: var(--step--1, 0.875rem); } .ds-enter a { color: var(--ink, #1a1715); text-decoration-color: color-mix(in oklab, currentColor 45%, transparent); text-decoration-thickness: 1px; text-underline-offset: 0.22em; } .ds-enter a:hover { text-decoration-color: currentColor; } .ds-stamp { display: inline-grid; justify-items: center; gap: 0.1em; margin: 0; padding: var(--space-2, 0.5rem) var(--space-3, 1rem) var(--space-3, 1rem); background: var(--stamp, #a83c25); color: var(--stamp-ink, #f5f0e6); font-family: var(--font-display, 'Shippori Mincho', serif); line-height: 1.1; border-radius: 3px; rotate: -1.5deg; white-space: nowrap; box-shadow: 0 1px 0 color-mix(in oklab, var(--stamp, #a83c25) 60%, black); } .ds-stamp-number { font-size: var(--step-2, 1.75rem); font-weight: 700; letter-spacing: 0.04em; font-variant-numeric: tabular-nums; } .ds-stamp time { font-size: var(--step--1, 0.875rem); font-variant-numeric: tabular-nums; opacity: 0.92; } .ds-leaf a:focus-visible { outline: 2px solid var(--focus, #a83c25); outline-offset: 3px; border-radius: 2px; }"
+    },
+    {
+      "name": "Section Label and People List",
+      "kind": "custom",
+      "refersTo": "people-row",
+      "description": "The reading column's section heading (a real h2 in label style) over the people list: name in the display face, role in soft ink, hairline rule per row, 'and others' for incomplete sections.",
+      "html": "<section class=\"ds-reading\"><h2 class=\"ds-label\">Artists</h2><ul class=\"ds-people\"><li><span class=\"ds-name\">Taro Example</span><span class=\"ds-role\">painter, sumi-e</span></li><li><span class=\"ds-name\">Yumi Example</span><span class=\"ds-role\">musician, koto</span></li><li class=\"ds-others\">and others</li></ul><p class=\"ds-note\" role=\"note\">Crew credits are drafted from the film's closing credits and not yet verified.</p></section>",
+      "css": ".ds-reading { background: var(--texture-page) var(--page, #f5f0e6); color: var(--ink, #1a1715); padding: var(--space-4, 1.5rem); font-family: var(--font-body, 'Noto Serif', serif); font-size: var(--step-0, 1rem); line-height: 1.65; } .ds-label { font-family: var(--font-display, 'Shippori Mincho', serif); font-size: var(--step--1, 0.875rem); font-weight: 400; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-soft, #655c53); margin: 0 0 var(--space-3, 1rem); } .ds-people { list-style: none; padding: 0; margin: 0 0 var(--space-3, 1rem); display: grid; gap: var(--space-2, 0.5rem); } .ds-people li { display: grid; grid-template-columns: minmax(10rem, max-content) 1fr; gap: var(--space-3, 1rem); padding-block-end: var(--space-2, 0.5rem); border-block-end: 1px solid var(--rule, #d6cbb6); } .ds-name { font-family: var(--font-display, 'Shippori Mincho', serif); } .ds-role, .ds-others { color: var(--ink-soft, #655c53); } .ds-note { font-size: var(--step--1, 0.875rem); color: var(--ink-soft, #655c53); margin: 0; max-width: 66ch; }"
+    },
+    {
+      "name": "Pasted Still",
+      "kind": "card",
+      "refersTo": "pasted-still",
+      "description": "A still kept in the book: square frame on washi-deep, soft lift, alternating 12% inline offsets.",
+      "html": "<ol class=\"ds-pasted\"><li><figure><div class=\"ds-still\" role=\"img\" aria-label=\"Still 01\"></div></figure></li><li><figure><div class=\"ds-still\" role=\"img\" aria-label=\"Still 02\"></div></figure></li></ol>",
+      "css": ".ds-pasted { list-style: none; margin: 0; padding: var(--space-4, 1.5rem); display: grid; gap: var(--space-5, 2.5rem); background: var(--texture-page) var(--page, #f5f0e6); } .ds-pasted li:nth-child(odd) { padding-inline-end: 12%; } .ds-pasted li:nth-child(even) { padding-inline-start: 12%; } .ds-pasted figure { margin: 0; background: var(--page-deep, #e9e1d0); box-shadow: 0 10px 24px -16px rgb(0 0 0 / 0.45); } .ds-still { aspect-ratio: 3 / 2; inline-size: 100%; }"
+    },
+    {
+      "name": "Skip Link",
+      "kind": "button",
+      "refersTo": "skip-link",
+      "description": "Vermilion skip link, visible only on focus (shown in its focused position).",
+      "html": "<div class=\"ds-skip-ground\"><a class=\"ds-skip\" href=\"#content\">Skip to content</a></div>",
+      "css": ".ds-skip-ground { position: relative; block-size: 4rem; background: var(--texture-page) var(--page, #f5f0e6); } .ds-skip { position: absolute; inset-inline-start: var(--gutter, 2rem); inset-block-start: var(--space-2, 0.5rem); padding: var(--space-2, 0.5rem) var(--space-3, 1rem); background: var(--stamp, #a83c25); color: var(--stamp-ink, #f5f0e6); font-family: var(--font-body, 'Noto Serif', serif); text-decoration: none; } .ds-skip:focus-visible { outline: 2px solid var(--focus, #a83c25); outline-offset: 3px; border-radius: 2px; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Goshuinchō",
+    "overview": "The site is a pilgrim's stamp book. Every performance is a page received from the guardians of the place where it happened: a vermilion date mark pressed in the fold margin, the place name as the largest thing on the leaf, the finished painting pasted whole beneath it. The book has a cloth cover (brocade indigo), warm washi leaves, and one voice of sumi type. Nothing on the site imitates the artist's brushwork; the only ink wash and calligraphy anywhere are in the photographs.\n\nDensity is low and the rhythm is editorial: one leaf at a time, generous fold and gutter, a 66ch measure, soft section labels in letterspaced small caps. Depth is physical rather than digital: a crease between leaves, the shadow a page casts on the cover as it slides over it, the lift of a photograph kept in a book. Colour is committed: indigo owns whole regions (cover, header, footer, the entire dark scheme), washi owns the page, and vermilion is rationed to the four places a stamp would be.\n\nTwelve locales, including RTL Arabic and three Han-script locales, are first-class. Every layout rule is written in logical properties; Han glyph forms follow :lang(); Arabic and Devanagari swap the whole family and loosen the leading. Core content is server-rendered and legible with no JavaScript; the fold is <details>, scroll-snap and a CSS scroll-timeline, and under reduced motion the book is already open and still.",
+    "keyCharacteristics": [
+      "Two materials, cloth and washi, each carrying its own procedurally generated texture tile (scripts/textures.mjs, provenance in the PNG tEXt).",
+      "Vermilion appears only on the seal, the date stamp, the current-language marker and focus/selection.",
+      "One display face (Shippori Mincho) above one body family (Noto Serif per script); no sans, no mono.",
+      "A fluid, clamp-based type ramp of six steps and a seven-step spacing scale; no breakpoint-specific font sizes.",
+      "Sideways folding: leaves snap horizontally in the reading direction, with a 1px crease and an inset shadow at each fold.",
+      "Flat surfaces with physical depth only: inset creases, a page-over-cover lift, a soft lift under pasted stills; no cards, no borders-as-decoration, no radius above 3px.",
+      "Motion is scroll-driven or near-instant (160ms); reduced motion stops everything."
+    ],
+    "rules": [
+      { "name": "The Four Stamps Rule", "body": "Vermilion is pressed, never painted: it appears only as the seal, the date stamp, the current-language marker, and focus/selection. Any new surface that wants a fifth vermilion element must justify it as a stamp.", "section": "colors" },
+      { "name": "The Two Materials Rule", "body": "Every region is either cloth or washi, and each carries its texture tile with its colour (var(--texture-cover) var(--cover), var(--texture-page) var(--page)). There is no third surface colour, no white, no grey panel.", "section": "colors" },
+      { "name": "The Same Seal Rule", "body": "The 一時 seal is the archive's seal.svg, vermilion ground and washi glyphs, identical in light and dark. It is never recoloured, inverted or redrawn.", "section": "colors" },
+      { "name": "The One Voice Rule", "body": "Two families, one character: Shippori Mincho for display and labels, Noto Serif for reading. No sans-serif, no monospace, no system face, in any locale. Script changes swap the family through :lang() tokens, never through per-locale selectors in components.", "section": "typography" },
+      { "name": "The Light Display Rule", "body": "Display and headline sizes are set at weight 400; 500 is the heaviest a heading goes, and 700 is reserved for the stamp number and inline emphasis.", "section": "typography" },
+      { "name": "The Label Is A Heading Rule", "body": "Small uppercase letterspaced text is only used where it is the heading of the section that follows (h2 at --step--1, 0.16em, soft ink). Nothing sits above a heading as a kicker.", "section": "typography" },
+      { "name": "The Fold Margin Rule", "body": "Anything that belongs to the page's provenance (the stamp, the way to neighbouring pages) lives in the fold margin at --fold width; the page content never enters it.", "section": "layout" },
+      { "name": "The Logical Only Rule", "body": "No physical direction properties (left, right, margin-left, padding-right, text-align: left) anywhere; the one translate: -50% 0 on the cover affordance is centring, not direction.", "section": "layout" },
+      { "name": "The Paper Depth Rule", "body": "A shadow may only describe paper: a crease, a fold, a page over cloth, a photograph kept in a book. Nothing is elevated on hover or focus; focus is the vermilion outline.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do compose every region as cloth or washi with its texture tile (var(--texture-cover) var(--cover) / var(--texture-page) var(--page)), and let the dark scheme be the whole book seen as cloth.",
+      "Do press vermilion only as the seal, the date stamp, the current-language marker and focus/selection (The Four Stamps Rule).",
+      "Do set every size from the fluid ramp --step--1..--step-4 and every gap from --space-1..--space-7, --gutter and --fold; no literal px/rem sizes in components.",
+      "Do write all direction in logical properties and let :lang() swap families; Arabic mirrors the fold and the accordion without extra rules.",
+      "Do make the place name the largest type on any performance surface (--step-4, 400, 1.02) and keep headings at weight 400–500.",
+      "Do show the lead still whole and uncropped on a performance page; crop to 4 / 3 only in index frames.",
+      "Do keep core content in server-rendered HTML: <details> for menus, scroll-snap and scroll-timeline for the fold, no JavaScript needed to read a page.",
+      "Do wrap motion in @supports (animation-timeline: scroll()) and prefers-reduced-motion: no-preference; the base stylesheet already zeroes all durations under reduced motion.",
+      "Do carry the archive's truth in copy: real names only, \"and others\" where a manifest section is TODO, the unverified-crew note, the written-text caveat, and never a machine transcript or caption quoted as anyone's words.",
+      "Do load fonts per script: fontsource subsets for Latin, Cyrillic, Arabic and Devanagari, and CJK stylesheets as <link> only for their own locale."
+    ],
+    "donts": [
+      "Don't draw ink: no brush strokes, splashes, calligraphic rules, hand-drawn borders or textured type. The only brushwork on the site is the painter's, in photographs.",
+      "Don't use vermilion for links, headings, backgrounds, buttons or hover states, and don't recolour or invert the seal.",
+      "Don't add a third surface colour, a white or grey panel, a card, a border-radius above 3px, or any hover elevation.",
+      "Don't introduce a sans-serif, monospace or system face, or set a heading at 700 (the stamp number is the sole exception).",
+      "Don't place a kicker or eyebrow above a heading; the small uppercase label is itself the section heading.",
+      "Don't build a thumbnail grid of equal cards or a video hero; the index is a sideways accordion of leaves and film is an outbound link.",
+      "Don't use physical direction properties or per-locale layout overrides.",
+      "Don't bake text into images, fabricate names, quotes, sponsors or dates, or fill a TODO by guessing."
+    ]
+  }
+}

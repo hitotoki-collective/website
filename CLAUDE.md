@@ -88,7 +88,7 @@ The build must never read `.mp4` files from the submodule; video is served from 
 
 - Visual world: a goshuinchō (pilgrim's stamp book). Tokens in `src/lib/styles/tokens.css`: indigo cloth (`--cover`) for the home cover, header, footer and the dark scheme; washi (`--page`) for pages; sumi ink; vermilion (`--stamp`) **only** where a stamp would be — the seal, the date mark (`src/lib/components/Stamp.svelte`), the current-page marker. Don't use vermilion as a general accent, and don't add brush-stroke or ink-splash decoration: the only brushwork on the site is the painter's, in photographs.
 - Type: Shippori Mincho for display, Noto Serif per script for body; fonts come from `@fontsource` per-subset stylesheets imported in `src/routes/+layout.svelte`, CJK sheets as a per-locale `<link>`. Han forms follow `:lang()` in tokens.css.
-- The surface brief and direction contract for home + performance page: `.impeccable/surfaces/src-routes-page-svelte.md`. Read it before changing either route. DESIGN.md is written by the Impeccable documenter at the end of a build; until it exists, tokens.css is the system.
+- The surface brief and direction contract for home + performance page: `.impeccable/surfaces/src-routes-page-svelte.md`. Read it before changing either route. `DESIGN.md` (plus its sidecar `.impeccable/design.json`) records the shipped system and its named rules; tokens.css is the implementation.
 - Stills: `src/lib/server/archive/stills.ts` globs the mechanically curated `IMG-00..05` through `@sveltejs/enhanced-img`; widen that glob to widen the curation.
 - Markdown headings from archive texts are shifted one level (`renderText`) so each page keeps a single `<h1>`.
 
