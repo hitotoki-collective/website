@@ -17,6 +17,10 @@
 	--vermilion: #a83c25;
 	--vermilion-ink: #f5f0e6;
 
+	/* material tiles (scripts/textures.mjs) */
+	--texture-page: url('../assets/textures/washi.png');
+	--texture-cover: url('../assets/textures/brocade.png');
+
 	/* roles, light: the open page */
 	--page: var(--washi);
 	--page-deep: var(--washi-deep);
@@ -67,6 +71,7 @@
 	:root:not([data-theme='light']) {
 		--page: var(--cloth);
 		--page-deep: var(--cloth-deep);
+		--texture-page: var(--texture-cover);
 		--ink: #ece5d8;
 		--ink-soft: #aab0c4;
 		--rule: #35415f;

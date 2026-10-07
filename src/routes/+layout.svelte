@@ -124,7 +124,7 @@
 
 <style>
 	.cloth {
-		background: var(--cover);
+		background: var(--texture-cover) var(--cover);
 		color: var(--cover-ink);
 	}
 

@@ -7,7 +7,7 @@
 }
 
 html {
-	background: var(--page);
+	background: var(--texture-page) var(--page);
 	color: var(--ink);
 	font-family: var(--font-body);
 	font-size: 100%;

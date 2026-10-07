@@ -11,7 +11,6 @@
 
 	const locale = $derived(getLocale());
 	const listFormat = $derived(new Intl.ListFormat(locale, { type: 'conjunction' }));
-	const pad = (n: number) => String(n).padStart(2, '0');
 </script>
 
 <svelte:head>
@@ -66,7 +65,6 @@
 						<p class="enter">
 							<a href={href(resolve('/performances/[code=code]', { code: leaf.code }))}>
 								{m.leaf_open()}
-								<span aria-hidden="true">→</span>
 							</a>
 						</p>
 					</div>
@@ -74,9 +72,6 @@
 			</li>
 		{/each}
 	</ol>
-	<p class="count">
-		{m.performance_label({ number: pad(data.leaves.length) })}
-	</p>
 </section>
 
 {#if data.inscription}
@@ -110,13 +105,7 @@
 		min-block-size: 100svh;
 		display: grid;
 		place-items: center;
-		background:
-			radial-gradient(
-				120% 80% at 50% 120%,
-				color-mix(in oklab, var(--cover) 70%, black) 0%,
-				transparent 60%
-			),
-			var(--cover);
+		background: var(--texture-cover) var(--cover);
 		color: var(--cover-ink);
 		text-align: center;
 		padding: var(--space-6) var(--gutter);
@@ -151,11 +140,32 @@
 		text-decoration: none;
 		color: var(--cover-ink-soft);
 		padding: var(--space-2) var(--space-3);
-		border: 1px solid color-mix(in oklab, var(--cover-ink) 35%, transparent);
+		border-block-end: 1px solid color-mix(in oklab, var(--cover-ink) 40%, transparent);
 	}
 	.open:hover {
 		color: var(--cover-ink);
 		border-color: currentColor;
+	}
+
+	/* Opening the book: as the pages slide up over the cover, the seal and name
+	   recede into the cloth. Driven by scroll position, from the visible state. */
+	@supports (animation-timeline: scroll()) {
+		@media (prefers-reduced-motion: no-preference) {
+			.cover-inner,
+			.open {
+				animation: recede linear both;
+				animation-timeline: scroll(root block);
+				animation-range: 0 100svh;
+			}
+		}
+	}
+	@keyframes recede {
+		to {
+			opacity: 0.15;
+			scale: 0.92;
+			translate: 0 -6vh;
+			filter: blur(2px);
+		}
 	}
 
 	/* ---- the book ---- */
@@ -201,7 +211,6 @@
 		grid-template-columns: var(--fold) 1fr;
 		gap: var(--space-4);
 		padding: var(--space-5) var(--space-5) var(--space-5) 0;
-		block-size: 100%;
 		align-content: start;
 	}
 	.margin {
@@ -229,14 +238,21 @@
 		color: var(--ink-soft);
 		margin-block-end: var(--space-4);
 	}
+	/* every leaf pastes its photograph into the same 4:3 frame, whatever its orientation */
 	.photo {
 		display: block;
+		overflow: hidden;
+		aspect-ratio: 4 / 3;
 		margin-block-end: var(--space-3);
 		background: var(--page-deep);
 	}
+	.photo :global(picture),
 	.photo :global(img) {
 		inline-size: 100%;
-		block-size: auto;
+		block-size: 100%;
+	}
+	.photo :global(img) {
+		object-fit: contain;
 	}
 	.artists {
 		font-family: var(--font-display);
@@ -248,18 +264,8 @@
 		font-size: var(--step--1);
 	}
 	.enter a {
-		text-decoration: none;
-		color: var(--stamp);
-	}
-	.enter a:hover {
-		text-decoration: underline;
-	}
-	.count {
-		font-family: var(--font-display);
-		font-size: var(--step--1);
-		color: var(--ink-soft);
-		padding-inline: var(--gutter);
-		margin: 0;
+		color: var(--ink);
+		text-underline-offset: 0.22em;
 	}
 
 	/* ---- inscription ---- */
@@ -275,11 +281,11 @@
 		margin-inline: auto;
 	}
 	.inscription h2 {
-		font-size: var(--step--1);
-		font-weight: 400;
-		letter-spacing: 0.18em;
-		text-transform: uppercase;
-		color: var(--ink-soft);
+		position: absolute;
+		inline-size: 1px;
+		block-size: 1px;
+		overflow: hidden;
+		clip-path: inset(50%);
 	}
 	.prose :global(h2) {
 		font-size: var(--step-2);
@@ -295,7 +301,7 @@
 		float: inline-start;
 		line-height: 0.85;
 		padding-inline-end: 0.08em;
-		color: var(--stamp);
+		color: var(--ink);
 	}
 	.more {
 		margin-block-start: var(--space-4);
@@ -303,7 +309,8 @@
 
 	@media (max-width: 48rem) {
 		.leaves {
-			grid-auto-columns: 92vw;
+			/* the next leaf shows a real edge, not a sliver */
+			grid-auto-columns: 84vw;
 		}
 		.leaf article {
 			grid-template-columns: 1fr;

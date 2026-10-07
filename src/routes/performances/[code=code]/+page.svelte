@@ -58,7 +58,6 @@
 
 	<div class="page">
 		<header class="head">
-			<p class="label">{label}</p>
 			<h1 class="place">{data.host.name}</h1>
 			<p class="where">
 				{data.location}, {data.country} ·
@@ -235,7 +234,7 @@
 		gap: var(--space-4);
 		writing-mode: vertical-rl;
 		font-family: var(--font-display);
-		font-size: var(--step--1);
+		font-size: var(--step-0);
 	}
 	.folds a {
 		text-decoration: none;
@@ -259,14 +258,6 @@
 	}
 	.head {
 		margin-block-end: var(--space-5);
-	}
-	.label {
-		font-family: var(--font-display);
-		font-size: var(--step--1);
-		letter-spacing: 0.16em;
-		text-transform: uppercase;
-		color: var(--ink-soft);
-		margin-block-end: var(--space-2);
 	}
 	.place {
 		font-size: var(--step-4);
@@ -332,7 +323,6 @@
 	.people.compact li {
 		grid-template-columns: 1fr;
 		gap: 0;
-		font-size: var(--step--1);
 	}
 
 	.text .prose :global(h2) {
@@ -353,7 +343,7 @@
 		float: inline-start;
 		line-height: 0.85;
 		padding-inline-end: 0.08em;
-		color: var(--stamp);
+		color: var(--ink);
 	}
 	.text .prose :global(hr) {
 		border: 0;
@@ -398,7 +388,7 @@
 	.credits {
 		position: sticky;
 		inset-block-start: var(--space-4);
-		font-size: var(--step--1);
+		font-size: var(--step-0);
 	}
 	.credits h2 {
 		font-size: var(--step--1);
