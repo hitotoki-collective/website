@@ -41,3 +41,7 @@ worker-configuration.d.ts
 
 # Impeccable review captures (regenerated per round)
 .impeccable/review/
+
+# Paraglide compiler output next to the project file
+project.inlang/.meta.json
+project.inlang/README.md
