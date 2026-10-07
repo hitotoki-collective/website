@@ -38,3 +38,6 @@ project.inlang/cache/
 
 # Wrangler generated types
 worker-configuration.d.ts
+
+# Impeccable review captures (regenerated per round)
+.impeccable/review/

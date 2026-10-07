@@ -1,0 +1,115 @@
+/*
+ * Design tokens. The visual world is a goshuinchō, the pilgrim's stamp book:
+ * brocade indigo cloth for the cover and chrome, warm washi for the pages,
+ * sumi ink for type, and vermilion only where a stamp would be. The light
+ * scheme is the open page; the dark scheme is the book seen as cloth. The seal
+ * itself never changes between them.
+ */
+:root {
+	color-scheme: light dark;
+
+	/* material */
+	--washi: #f5f0e6;
+	--washi-deep: #e9e1d0;
+	--sumi: #1a1715;
+	--cloth: #1d2740;
+	--cloth-deep: #141b2e;
+	--vermilion: #a83c25;
+	--vermilion-ink: #f5f0e6;
+
+	/* roles, light: the open page */
+	--page: var(--washi);
+	--page-deep: var(--washi-deep);
+	--ink: var(--sumi);
+	--ink-soft: #655c53;
+	--rule: #d6cbb6;
+	--crease: color-mix(in oklab, var(--sumi) 14%, var(--washi));
+	--cover: var(--cloth);
+	--cover-deep: var(--cloth-deep);
+	--cover-ink: var(--washi);
+	--cover-ink-soft: #b9bfd2;
+	--stamp: var(--vermilion);
+	--stamp-ink: var(--vermilion-ink);
+	--focus: var(--vermilion);
+	--selection: color-mix(in oklab, var(--vermilion) 22%, var(--washi));
+
+	/* type */
+	--font-display: 'Shippori Mincho', var(--font-cjk, 'Noto Serif JP'), 'Noto Serif', serif;
+	--font-body:
+		'Noto Serif', var(--font-cjk, 'Noto Serif JP'), 'Noto Naskh Arabic', 'Noto Serif Devanagari',
+		serif;
+	--leading-body: 1.65;
+	--measure: 66ch;
+
+	/* scale */
+	--step--1: clamp(0.83rem, 0.8rem + 0.15vw, 0.92rem);
+	--step-0: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+	--step-1: clamp(1.2rem, 1.1rem + 0.5vw, 1.5rem);
+	--step-2: clamp(1.5rem, 1.3rem + 1vw, 2.1rem);
+	--step-3: clamp(2rem, 1.6rem + 2vw, 3.2rem);
+	--step-4: clamp(2.6rem, 1.6rem + 5vw, 6rem);
+
+	/* rhythm */
+	--space-1: 0.25rem;
+	--space-2: 0.5rem;
+	--space-3: 1rem;
+	--space-4: 1.5rem;
+	--space-5: 2.5rem;
+	--space-6: 4rem;
+	--space-7: 6.5rem;
+	--gutter: clamp(1rem, 4vw, 3rem);
+
+	/* the fold margin of a leaf: where the stamp sits */
+	--fold: clamp(3.5rem, 9vw, 7rem);
+}
+
+@media (prefers-color-scheme: dark) {
+	:root:not([data-theme='light']) {
+		--page: var(--cloth);
+		--page-deep: var(--cloth-deep);
+		--ink: #ece5d8;
+		--ink-soft: #aab0c4;
+		--rule: #35415f;
+		--crease: color-mix(in oklab, black 30%, var(--cloth));
+		--cover: var(--cloth-deep);
+		--cover-deep: #0d1322;
+		--cover-ink: var(--washi);
+		--cover-ink-soft: #aab0c4;
+		--selection: color-mix(in oklab, var(--vermilion) 45%, var(--cloth));
+	}
+}
+
+:root[data-theme='dark'] {
+	--page: var(--cloth);
+	--page-deep: var(--cloth-deep);
+	--ink: #ece5d8;
+	--ink-soft: #aab0c4;
+	--rule: #35415f;
+	--crease: color-mix(in oklab, black 30%, var(--cloth));
+	--cover: var(--cloth-deep);
+	--cover-deep: #0d1322;
+	--cover-ink: var(--washi);
+	--cover-ink-soft: #aab0c4;
+	--selection: color-mix(in oklab, var(--vermilion) 45%, var(--cloth));
+}
+
+/* Han glyphs follow the locale: one voice, the right regional forms. */
+:lang(ja) {
+	--font-cjk: 'Noto Serif JP';
+}
+:lang(zh-Hans) {
+	--font-cjk: 'Noto Serif SC';
+}
+:lang(ko) {
+	--font-cjk: 'Noto Serif KR';
+}
+:lang(ar) {
+	--font-display: 'Noto Naskh Arabic', serif;
+	--font-body: 'Noto Naskh Arabic', serif;
+	--leading-body: 1.9;
+}
+:lang(hi) {
+	--font-display: 'Noto Serif Devanagari', serif;
+	--font-body: 'Noto Serif Devanagari', serif;
+	--leading-body: 1.85;
+}

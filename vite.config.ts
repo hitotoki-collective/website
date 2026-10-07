@@ -3,6 +3,7 @@ import { mdsvex } from 'mdsvex';
 import { defineConfig } from 'vitest/config';
 import { playwright } from '@vitest/browser-playwright';
 import adapter from '@sveltejs/adapter-cloudflare';
+import { enhancedImages } from '@sveltejs/enhanced-img';
 import { sveltekit } from '@sveltejs/kit/vite';
 import inlang from './project.inlang/settings.json' with { type: 'json' };
 import { contentReport } from './src/lib/content/report-plugin.js';
@@ -10,10 +11,16 @@ import { contentReport } from './src/lib/content/report-plugin.js';
 const LOCALES: string[] = inlang.locales;
 
 export default defineConfig({
+	build: {
+		// The seal SVG and favicon appear several times per page; keep them as cacheable files.
+		assetsInlineLimit: 0
+	},
 	plugins: [
 		// Validates site content front matter (fails the build) and warns on
 		// every missing translation before anything is compiled.
 		contentReport({ locales: LOCALES, baseLocale: inlang.baseLocale }),
+		// Must precede sveltekit(): transforms the curated archive stills into AVIF/WebP sets.
+		enhancedImages(),
 		sveltekit({
 			compilerOptions: {
 				// Force runes mode for the project, except for libraries. Can be removed in svelte 6.

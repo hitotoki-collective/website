@@ -34,7 +34,7 @@ test('internal links keep the locale prefix', async ({ page }) => {
 
 test('a performance page renders from the archive manifest', async ({ page }) => {
 	await page.goto('/en/performances/PRF-01');
-	await expect(page.locator('h1')).toHaveText('Performance 01');
+	await expect(page.locator('h1')).toHaveText('Dai-Kaku-Ji temple');
 	await expect(page.getByText('Taro Nordberg')).toBeVisible();
 	await expect(page.getByRole('heading', { name: 'Forty Minutes Above the Pond' })).toBeVisible();
 });
