@@ -1,0 +1,30 @@
+# Dependencies and build output
+node_modules/
+.svelte-kit/
+build/
+.wrangler/
+dist/
+
+# Test and tooling output
+coverage/
+test-results/
+playwright-report/
+.lighthouseci/
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# Machine-local agent and tooling state
+.claude/settings.local.json
+.impeccable/config.local.json
+.impeccable/live/
+.impeccable/mocks/
+.serena/
+
+# Impeccable launcher downloads its binary on first run
+.claude/skills/impeccable/scripts/bin/
+
+# OS
+.DS_Store
