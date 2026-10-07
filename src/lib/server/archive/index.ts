@@ -1,3 +1,5 @@
+import type { Component } from 'svelte';
+import { renderToHtml } from '../render.js';
 import { ManifestError, parseManifest } from './manifest.js';
 import type { PerformanceManifest } from './schema.js';
 
@@ -21,7 +23,13 @@ const stillFiles = Object.keys(
 	import.meta.glob('/src/content/archive/performances/*/*-IMG-*.jpeg', { query: '?url' })
 );
 
-const textFiles = Object.keys(import.meta.glob('/src/content/archive/performances/*/*.md'));
+// Lazy: only the titled written texts are ever imported (as MDsveX components);
+// manifests, transcripts and quote extracts are never compiled as Svelte.
+const textModules = import.meta.glob('/src/content/archive/performances/*/*.md') as Record<
+	string,
+	() => Promise<{ default: Component }>
+>;
+const textFiles = Object.keys(textModules);
 
 export type Still = {
 	/** `PRF-01-IMG-03` */
@@ -100,4 +108,18 @@ export function listPerformances(): Performance[] {
 
 export function getPerformance(code: string): Performance | undefined {
 	return performances.get(code);
+}
+
+/**
+ * Server-rendered HTML of one of a performance's written texts. The text's
+ * own `# Title` becomes an `<h2>` (and so on down) so it nests under the
+ * page's single `<h1>`.
+ */
+export async function renderText(text: WrittenText): Promise<string> {
+	const load = textModules['/' + text.path];
+	if (!load) throw new Error(`no such archive text: ${text.path}`);
+	return renderToHtml((await load()).default).replace(
+		/<(\/?)h([1-5])\b/g,
+		(_, slash: string, level: string) => `<${slash}h${Number(level) + 1}`
+	);
 }

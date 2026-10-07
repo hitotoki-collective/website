@@ -21,6 +21,12 @@ export default defineConfig({
 					filename.split(/[/\\]/).includes('node_modules') ? undefined : true
 			},
 			adapter: adapter(),
+			prerender: {
+				// Routes live unprefixed in src/routes; Paraglide reroutes `/<locale>/...`.
+				// Seed one entry per locale and let the crawler follow the layout's
+				// language links to reach every localized page.
+				entries: LOCALES.map((locale) => `/${locale}` as const)
+			},
 			preprocess: [mdsvex({ extensions: ['.svx', '.md'] })],
 			extensions: ['.svelte', '.svx', '.md']
 		}),

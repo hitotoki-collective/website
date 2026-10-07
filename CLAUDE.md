@@ -56,6 +56,14 @@ Vitest has two projects: `server` (node, `*.spec.ts`) and `client` (browser via 
 - `src/lib/server/content/index.ts` — runtime loader. `import.meta.glob` over `src/content/*/*.md` (archive excluded); MDsveX supplies each file as a component plus `metadata`. `loadEntry(type, slug, locale)` returns `{ entry, fallback, component }`.
 - `src/lib/server/archive/` — the archive submodule's view. `manifest.ts` parses `PRF-<NN>-MANIFEST.md` by heading, list and table into the Zod shape in `schema.ts`; `TODO` placeholders are dropped and the section is named in `incomplete`; `crewVerified` is false while the manifest still says the crew list is unverified OCR. `index.ts` globs manifests (raw), still filenames (keys only — never import the JPEGs) and texts, and exposes `listPerformances()` / `getPerformance(code)`. Its tests run against the real PRF-01 and PRF-02 files.
 - Everything under `src/lib/server/` is server-only; keep content loading there so the archive never reaches the client bundle.
+
+### Routes
+
+- Routes live **unprefixed** in `src/routes/` (`/`, `/about`, `/performances`, `/performances/[code=code]`, `/journal`); `src/hooks.ts` strips the locale prefix before matching and `src/hooks.server.ts` resolves the locale. Read it with `getLocale()` inside `load`.
+- Every internal link goes through `href()` from `src/lib/i18n/href.ts` (`localizeHref` over `resolve()`); a bare `resolve()` href leaks an unprefixed URL, which the crawler would then prerender. The e2e suite asserts every link on the page is prefixed and that unprefixed URLs redirect.
+- The whole tree is prerendered (`src/routes/+layout.server.ts`); `vite.config.ts` seeds one entry per locale and the crawler follows the layout's language links. Don't export `entries` from dynamic routes — SvelteKit would visit the unprefixed path.
+- Param matchers are SvelteKit 3 style: a single `src/params.ts` exporting `defineParams({...})` with Standard Schema (Zod) validators. Node loads that file directly, so it cannot use `#lib` imports.
+- Markdown content (site pages, archive texts) is rendered to HTML on the server (`src/lib/server/render.ts`) and passed as a string; pages use `{@html}`. No Markdown component reaches the client.
 - `src/content/archive` is a git submodule of `hitotoki-collective/archive` (shallow, tracks `main`). It is **read-only** from this repo — changes go upstream. It has its own `CLAUDE.md` describing its layout: flat `performances/PRF-<NN>/` folders, every file prefixed with the folder name, kind codes (`IMG`, `VID`, `SEG`, `MON`, `SUB`, `QTE`, `TSC`), and a fixed-section `PRF-<NN>-MANIFEST.md`. Read it before writing code that parses the archive.
 
 ## Archive checkout (important)
