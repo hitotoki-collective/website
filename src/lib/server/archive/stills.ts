@@ -8,7 +8,7 @@ import type { Performance, Still } from './index.js';
 // curation means widening this pattern.
 
 const pictures = import.meta.glob('/src/content/archive/performances/*/*-IMG-0[0-5].jpeg', {
-	query: { enhanced: true, w: '2400;1600;1200;800;480' },
+	query: { enhanced: true, w: '2000;1440;1200;960;800;640;480', quality: '58' },
 	import: 'default'
 }) as Record<string, () => Promise<Picture>>;
 

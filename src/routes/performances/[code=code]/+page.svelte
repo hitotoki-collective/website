@@ -4,6 +4,9 @@
 	import { href } from '#lib/i18n/href.js';
 	import * as m from '#lib/paraglide/messages.js';
 	import Stamp from '#lib/components/Stamp.svelte';
+	import Head from '#lib/components/Head.svelte';
+	import LeadStill from '#lib/components/LeadStill.svelte';
+	import { SITE_NAME, SITE_ORIGIN, absolute } from '#lib/site.js';
 	import type { PageProps } from './$types';
 
 	let { data }: PageProps = $props();
@@ -22,19 +25,71 @@
 	const incomplete = (section: (typeof data.incomplete)[number]) =>
 		data.incomplete.includes(section);
 	const lead = $derived(data.stills[0]);
+	const LEAD_SIZES = '(min-width: 80rem) 72rem, 94vw';
+	const PHONE_MAX = '48rem';
+	const PHONE_CAP = 800;
+	// Preload the lead in the same two tiers LeadStill serves it in.
+	const preload = $derived.by(() => {
+		const avif = lead?.picture.sources.avif;
+		if (!avif) return [];
+		const all = avif.split(',').map((c) => c.trim());
+		const capped = all.filter((c) => Number.parseInt(c.split(/\s+/)[1]) <= PHONE_CAP);
+		return [
+			{
+				srcset: capped.join(', '),
+				sizes: LEAD_SIZES,
+				type: 'image/avif',
+				media: `(max-width: ${PHONE_MAX})`
+			},
+			{
+				srcset: all.join(', '),
+				sizes: LEAD_SIZES,
+				type: 'image/avif',
+				media: `(min-width: calc(${PHONE_MAX} + 1px))`
+			}
+		];
+	});
 	const rest = $derived(data.stills.slice(1));
 	const stillAlt = (index: number) =>
 		m.still_alt({ index: pad(index), performance: label, place: data.host.name });
 	const toPage = (code: string) => href(resolve('/performances/[code=code]', { code }));
+	const description = $derived(
+		`${label}: ${data.host.name}, ${data.location}, ${data.country}. ${when}.`
+	);
+	// schema.org Event with the real participants as Person nodes; nothing
+	// beyond what the manifest records.
+	const event = $derived({
+		'@type': 'Event',
+		name: `${label} — ${data.host.name}`,
+		startDate: `${data.date}T${data.time}:00+09:00`,
+		eventStatus: 'https://schema.org/EventScheduled',
+		eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
+		location: {
+			'@type': 'Place',
+			name: data.host.name,
+			address: {
+				'@type': 'PostalAddress',
+				addressLocality: data.location,
+				addressCountry: data.country
+			},
+			...(data.host.links.website ? { url: data.host.links.website } : {})
+		},
+		performer: data.participants.artists.map((a) => ({ '@type': 'Person', name: a.name })),
+		organizer: { '@id': `${SITE_ORIGIN}/#organization`, '@type': 'Organization', name: SITE_NAME },
+		...(lead ? { image: absolute(lead.picture.img.src) } : {}),
+		url: absolute(href(resolve('/performances/[code=code]', { code: data.code })))
+	});
 </script>
 
-<svelte:head>
-	<title>{data.host.name} · {label} · {m.site_name()}</title>
-	<meta
-		name="description"
-		content="{label}: {data.host.name}, {data.location}, {data.country}. {when}."
-	/>
-</svelte:head>
+<Head
+	title="{data.host.name} · {label} · {m.site_name()}"
+	{description}
+	image={lead ? lead.picture.img.src : undefined}
+	imageAlt={lead ? m.still_lead_alt({ performance: label, place: data.host.name }) : undefined}
+	type="article"
+	schema={[event]}
+	preloadImage={preload}
+/>
 
 <article class="leaf">
 	<!-- fold margin: the stamp, then the way to the neighbouring pages -->
@@ -67,12 +122,12 @@
 
 		{#if lead}
 			<figure class="lead">
-				<enhanced:img
-					src={lead.picture}
+				<LeadStill
+					picture={lead.picture}
 					alt={m.still_lead_alt({ performance: label, place: data.host.name })}
-					sizes="(min-width: 80rem) 72rem, 94vw"
-					loading="eager"
-					fetchpriority="high"
+					sizes={LEAD_SIZES}
+					phoneMax={PHONE_MAX}
+					phoneCap={PHONE_CAP}
 				/>
 			</figure>
 		{/if}

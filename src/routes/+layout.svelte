@@ -3,32 +3,25 @@
 	import '#lib/styles/base.css';
 	// Latin, Cyrillic, Arabic and Devanagari faces: tiny per-subset stylesheets
 	// whose unicode-range keeps a Latin visitor from downloading other scripts.
+	// One weight per face: the site sets no bold (font budget < 150 KB per locale).
 	import '@fontsource/shippori-mincho/latin-400.css';
-	import '@fontsource/shippori-mincho/latin-700.css';
 	import '@fontsource/noto-serif/latin-400.css';
-	import '@fontsource/noto-serif/latin-700.css';
-	import '@fontsource/noto-serif/latin-ext-400.css';
-	import '@fontsource/noto-serif/latin-ext-700.css';
-	import '@fontsource/noto-serif/cyrillic-400.css';
-	import '@fontsource/noto-serif/cyrillic-700.css';
-	import '@fontsource/noto-naskh-arabic/arabic-400.css';
-	import '@fontsource/noto-naskh-arabic/arabic-700.css';
-	import '@fontsource/noto-serif-devanagari/devanagari-400.css';
-	import '@fontsource/noto-serif-devanagari/devanagari-700.css';
 	// CJK stylesheets are large (hundreds of sliced @font-face rules), so they
 	// load as a <link> only for their own locale.
-	import jp400 from '@fontsource/noto-serif-jp/400.css?url';
-	import jp700 from '@fontsource/noto-serif-jp/700.css?url';
+	import latinExt from '@fontsource/noto-serif/latin-ext-400.css?url';
+	import cyrillic from '@fontsource/noto-serif/cyrillic-400.css?url';
+	import arabic from '@fontsource/noto-naskh-arabic/arabic-400.css?url';
+	import devanagari from '@fontsource/noto-serif-devanagari/devanagari-400.css?url';
 	import sc400 from '@fontsource/noto-serif-sc/400.css?url';
-	import sc700 from '@fontsource/noto-serif-sc/700.css?url';
 	import kr400 from '@fontsource/noto-serif-kr/400.css?url';
-	import kr700 from '@fontsource/noto-serif-kr/700.css?url';
-	import shipporiJa400 from '@fontsource/shippori-mincho/japanese-400.css?url';
-	import shipporiJa700 from '@fontsource/shippori-mincho/japanese-700.css?url';
+	// Shippori's `japanese-*.css` points at one 1.4 MB file; `400.css` is the
+	// sliced set with unicode-range, so a page downloads only the glyph blocks it uses.
+	import shipporiJa400 from '@fontsource/shippori-mincho/400.css?url';
+	import shipporiLatin400 from '@fontsource/shippori-mincho/files/shippori-mincho-latin-400-normal.woff2?url';
 
 	import { resolve } from '$app/paths';
 	import { page } from '$app/state';
-	import { getLocale, locales } from '#lib/paraglide/runtime.js';
+	import { deLocalizeUrl, getLocale, locales } from '#lib/paraglide/runtime.js';
 	import { href } from '#lib/i18n/href.js';
 	import * as m from '#lib/paraglide/messages.js';
 	import Seal from '#lib/components/Seal.svelte';
@@ -44,15 +37,32 @@
 	] as const;
 
 	const locale = $derived(getLocale());
-	const cjk: Record<string, string[]> = {
-		ja: [jp400, jp700, shipporiJa400, shipporiJa700],
-		'zh-Hans': [sc400, sc700],
-		ko: [kr400, kr700]
+	// Script-specific stylesheets, one set per locale, so a page only declares
+	// the faces its own script needs (and never fetches another script's).
+	const perLocale: Record<string, string[]> = {
+		fr: [latinExt],
+		de: [latinExt],
+		it: [latinExt],
+		pt: [latinExt],
+		es: [latinExt],
+		ru: [cyrillic],
+		ar: [arabic],
+		hi: [devanagari],
+		ja: [shipporiJa400],
+		'zh-Hans': [sc400],
+		ko: [kr400]
 	};
-	const extraStyles = $derived(cjk[locale] ?? []);
+	const extraStyles = $derived(perLocale[locale] ?? []);
+	// Latin-script locales paint their first heading in this file; fetch it first.
+	const preloadDisplay = $derived(!['ja', 'zh-Hans', 'ko', 'ar', 'hi'].includes(locale));
 	const languageName = (tag: string) =>
 		new Intl.DisplayNames([tag], { type: 'language' }).of(tag) ?? tag;
 	const isHome = $derived(page.route.id === '/');
+	// An explicit choice must outlive this visit and beat Accept-Language next
+	// time: the link goes through /locale/<tag>, which sets the cookie server-side
+	// and redirects to the same page in that language. No JavaScript involved.
+	const choose = (tag: string) =>
+		href(`/locale/${tag}?to=${encodeURIComponent(deLocalizeUrl(page.url.href).pathname)}`);
 </script>
 
 <svelte:head>
@@ -60,6 +70,15 @@
 	{#each extraStyles as sheet (sheet)}
 		<link rel="stylesheet" href={sheet} />
 	{/each}
+	{#if preloadDisplay}
+		<link
+			rel="preload"
+			as="font"
+			type="font/woff2"
+			href={shipporiLatin400}
+			crossorigin="anonymous"
+		/>
+	{/if}
 	<meta name="theme-color" content="#1d2740" />
 </svelte:head>
 
@@ -91,7 +110,7 @@
 				{#each locales as tag (tag)}
 					<li>
 						<a
-							href={href(page.url.pathname, tag)}
+							href={choose(tag)}
 							hreflang={tag}
 							lang={tag}
 							aria-current={tag === locale ? 'true' : undefined}
@@ -197,6 +216,9 @@
 		translate: 0 -0.2em;
 	}
 	.languages ul {
+		/* Twelve scripts in one list: the system font, so the menu never pulls
+		   Cyrillic, Arabic or Devanagari webfonts onto a page that has none. */
+		font-family: system-ui, sans-serif;
 		position: absolute;
 		inset-inline-end: 0;
 		inset-block-start: calc(100% + var(--space-2));

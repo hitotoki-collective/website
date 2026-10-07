@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 // Generates the two material tiles the goshuinchō world is built on, so they
 // are reproducible and carry no third-party licence:
-//   washi.png   — warm-white paper with long, randomly laid fibres
-//   brocade.png — indigo cloth, a fine twill weave with thread-level variation
+//   washi.webp   — warm-white paper with long, randomly laid fibres
+//   brocade.webp — indigo cloth, a fine twill weave with thread-level variation
 // Both tiles wrap seamlessly. Run from the repository root:
 //   node scripts/textures.mjs
 import sharp from 'sharp';
@@ -41,8 +41,8 @@ async function write(name, px, size) {
 	const buf = Buffer.alloc(size * size * 3);
 	for (let i = 0; i < buf.length; i++) buf[i] = Math.max(0, Math.min(255, Math.round(px[i])));
 	await sharp(buf, { raw: { width: size, height: size, channels: 3 } })
-		.png({ compressionLevel: 9 })
-		.toFile(`${OUT}/${name}.png`);
+		.webp({ quality: 82, effort: 6 })
+		.toFile(`${OUT}/${name}.webp`);
 }
 
 // ---- washi -----------------------------------------------------------------
@@ -114,4 +114,4 @@ async function write(name, px, size) {
 	await write('brocade', px, size);
 }
 
-console.log(`wrote ${OUT}/washi.png and ${OUT}/brocade.png`);
+console.log(`wrote ${OUT}/washi.webp and ${OUT}/brocade.webp`);

@@ -3,6 +3,7 @@
 	import { getLocale } from '#lib/paraglide/runtime.js';
 	import { href } from '#lib/i18n/href.js';
 	import * as m from '#lib/paraglide/messages.js';
+	import Head from '#lib/components/Head.svelte';
 	import type { PageProps } from './$types';
 
 	let { data }: PageProps = $props();
@@ -12,9 +13,7 @@
 	const listFormat = $derived(new Intl.ListFormat(locale, { type: 'conjunction' }));
 </script>
 
-<svelte:head>
-	<title>{m.performances_title()} · {m.site_name()}</title>
-</svelte:head>
+<Head title="{m.performances_title()} · {m.site_name()}" description={m.cover_line()} />
 
 <h1>{m.performances_title()}</h1>
 

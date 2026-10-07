@@ -1,16 +1,16 @@
 <script lang="ts">
 	import * as m from '#lib/paraglide/messages.js';
+	import Head from '#lib/components/Head.svelte';
 	import type { PageProps } from './$types';
 
 	let { data }: PageProps = $props();
 </script>
 
-<svelte:head>
-	<title>{data.title} · {m.site_name()}</title>
-	{#if data.description}
-		<meta name="description" content={data.description} />
-	{/if}
-</svelte:head>
+<Head
+	title="{data.title} · {m.site_name()}"
+	description={data.description ?? m.cover_line()}
+	type="article"
+/>
 
 <article>
 	<h1>{data.title}</h1>

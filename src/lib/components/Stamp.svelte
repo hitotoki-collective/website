@@ -41,7 +41,7 @@
 	}
 	.number {
 		font-size: var(--step-2);
-		font-weight: 700;
+		font-weight: 400;
 		letter-spacing: 0.04em;
 		font-variant-numeric: tabular-nums;
 	}

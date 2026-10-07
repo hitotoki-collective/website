@@ -4,6 +4,7 @@
 	import { href } from '#lib/i18n/href.js';
 	import * as m from '#lib/paraglide/messages.js';
 	import Seal from '#lib/components/Seal.svelte';
+	import Head from '#lib/components/Head.svelte';
 	import Stamp from '#lib/components/Stamp.svelte';
 	import type { PageProps } from './$types';
 
@@ -13,10 +14,7 @@
 	const listFormat = $derived(new Intl.ListFormat(locale, { type: 'conjunction' }));
 </script>
 
-<svelte:head>
-	<title>{m.site_name()} · {m.site_name_ja()}</title>
-	<meta name="description" content={m.cover_line()} />
-</svelte:head>
+<Head title="{m.site_name()} · {m.site_name_ja()}" description={m.cover_line()} />
 
 <!-- The closed book. Scrolling opens it: the pages below slide over the cover. -->
 <section class="cover" aria-labelledby="cover-title">
@@ -57,7 +55,7 @@
 									alt=""
 									sizes="(min-width: 64rem) 44vw, 92vw"
 									loading={i === 0 ? 'eager' : 'lazy'}
-									fetchpriority={i === 0 ? 'high' : 'auto'}
+									fetchpriority={i === 0 ? 'high' : 'low'}
 								/>
 							</a>
 						{/if}

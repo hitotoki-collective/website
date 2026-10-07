@@ -18,8 +18,8 @@
 	--vermilion-ink: #f5f0e6;
 
 	/* material tiles (scripts/textures.mjs) */
-	--texture-page: url('../assets/textures/washi.png');
-	--texture-cover: url('../assets/textures/brocade.png');
+	--texture-page: url('../assets/textures/washi.webp');
+	--texture-cover: url('../assets/textures/brocade.webp');
 
 	/* roles, light: the open page */
 	--page: var(--washi);
@@ -100,7 +100,10 @@
 
 /* Han glyphs follow the locale: one voice, the right regional forms. */
 :lang(ja) {
-	--font-cjk: 'Noto Serif JP';
+	/* Shippori Mincho is a book face: it sets Japanese body text too, so the
+	   locale ships one CJK family (and one 34 KB slice sheet) instead of two. */
+	--font-cjk: 'Shippori Mincho';
+	--font-body: 'Shippori Mincho', 'Noto Serif', serif;
 }
 :lang(zh-Hans) {
 	--font-cjk: 'Noto Serif SC';

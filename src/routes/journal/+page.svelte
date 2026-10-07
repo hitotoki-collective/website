@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { getLocale } from '#lib/paraglide/runtime.js';
 	import * as m from '#lib/paraglide/messages.js';
+	import Head from '#lib/components/Head.svelte';
 	import type { PageProps } from './$types';
 
 	let { data }: PageProps = $props();
@@ -8,9 +9,7 @@
 	const dateFormat = $derived(new Intl.DateTimeFormat(getLocale(), { dateStyle: 'long' }));
 </script>
 
-<svelte:head>
-	<title>{m.journal_title()} · {m.site_name()}</title>
-</svelte:head>
+<Head title="{m.journal_title()} · {m.site_name()}" description={m.cover_line()} />
 
 <h1>{m.journal_title()}</h1>
 

@@ -9,6 +9,9 @@ import inlang from './project.inlang/settings.json' with { type: 'json' };
 import { contentReport } from './src/lib/content/report-plugin.js';
 
 const LOCALES: string[] = inlang.locales;
+// Files that live at the site root, outside locale prefixing.
+const ROOT_FILES = ['/robots.txt', '/sitemap.xml', '/llms.txt'];
+const SITE_ORIGIN = process.env.PUBLIC_SITE_ORIGIN ?? 'https://hitotoki.example';
 
 export default defineConfig({
 	build: {
@@ -32,8 +35,18 @@ export default defineConfig({
 				// Routes live unprefixed in src/routes; Paraglide reroutes `/<locale>/...`.
 				// Seed one entry per locale and let the crawler follow the layout's
 				// language links to reach every localized page.
-				entries: LOCALES.map((locale) => `/${locale}` as const)
+				entries: [
+					...LOCALES.map((locale) => `/${locale}` as const),
+					...LOCALES.map((locale) => `/${locale}/feed.json` as const),
+					...(ROOT_FILES as `/${string}`[])
+				]
 			},
+			// Absolute URLs in prerendered pages (canonical, hreflang, sitemap).
+			// Absolute asset URLs (relative: false) so that route CSS can be inlined:
+			// inlined relative url() references would resolve against the page and 404.
+			paths: { origin: SITE_ORIGIN, relative: false },
+			// Route CSS is a few KB; inlining it removes the render-blocking round trips.
+			inlineStyleThreshold: 12 * 1024,
 			preprocess: [mdsvex({ extensions: ['.svx', '.md'] })],
 			extensions: ['.svelte', '.svx', '.md']
 		}),
@@ -47,6 +60,12 @@ export default defineConfig({
 			// beats the base locale. See docs/technical/requirements.md.
 			strategy: ['url', 'cookie', 'preferredLanguage', 'baseLocale'],
 			urlPatterns: [
+				// Root files keep their path in every locale, so the middleware never
+				// redirects /robots.txt to /en/robots.txt.
+				...ROOT_FILES.map((file) => ({
+					pattern: file,
+					localized: LOCALES.map((locale) => [locale, file] as [string, string])
+				})),
 				{
 					pattern: '/:path(.*)?',
 					localized: LOCALES.map((locale) => [locale, `/${locale}/:path(.*)?`])
