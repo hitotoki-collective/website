@@ -238,7 +238,8 @@
 		color: var(--ink-soft);
 		margin-block-end: var(--space-4);
 	}
-	/* every leaf pastes its photograph into the same 4:3 frame, whatever its orientation */
+	/* the index pastes every lead still into the same 4:3 frame; the uncropped
+	   print lives on the performance page */
 	.photo {
 		display: block;
 		overflow: hidden;
@@ -252,7 +253,7 @@
 		block-size: 100%;
 	}
 	.photo :global(img) {
-		object-fit: contain;
+		object-fit: cover;
 	}
 	.artists {
 		font-family: var(--font-display);

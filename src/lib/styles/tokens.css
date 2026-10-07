@@ -75,7 +75,7 @@
 		--ink: #ece5d8;
 		--ink-soft: #aab0c4;
 		--rule: #35415f;
-		--crease: color-mix(in oklab, black 30%, var(--cloth));
+		--crease: color-mix(in oklab, white 22%, var(--cloth));
 		--cover: var(--cloth-deep);
 		--cover-deep: #0d1322;
 		--cover-ink: var(--washi);
@@ -90,7 +90,7 @@
 	--ink: #ece5d8;
 	--ink-soft: #aab0c4;
 	--rule: #35415f;
-	--crease: color-mix(in oklab, black 30%, var(--cloth));
+	--crease: color-mix(in oklab, white 22%, var(--cloth));
 	--cover: var(--cloth-deep);
 	--cover-deep: #0d1322;
 	--cover-ink: var(--washi);

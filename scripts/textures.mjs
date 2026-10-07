@@ -41,7 +41,7 @@ async function write(name, px, size) {
 	const buf = Buffer.alloc(size * size * 3);
 	for (let i = 0; i < buf.length; i++) buf[i] = Math.max(0, Math.min(255, Math.round(px[i])));
 	await sharp(buf, { raw: { width: size, height: size, channels: 3 } })
-		.png({ compressionLevel: 9, palette: true })
+		.png({ compressionLevel: 9 })
 		.toFile(`${OUT}/${name}.png`);
 }
 
@@ -84,7 +84,7 @@ async function write(name, px, size) {
 
 // ---- brocade ---------------------------------------------------------------
 {
-	const size = 256;
+	const size = 512;
 	const base = [29, 39, 64];
 	const px = canvas(size, base);
 	const rand = rng(1004);
@@ -95,13 +95,13 @@ async function write(name, px, size) {
 		for (let x = 0; x < size; x++) {
 			const rib = (x + y) % 4;
 			const tone = rib === 0 ? light : rib === 2 ? shade : null;
-			if (tone) dab(px, size, x, y, tone, 0.55);
+			if (tone) dab(px, size, x, y, tone, 0.32);
 			// thread-level grain along the warp
 			if (x % 2 === 0) dab(px, size, x, y, light, 0.08 + rand() * 0.06);
 		}
 	}
 	// slubs: the occasional thicker thread of silk
-	for (let n = 0; n < 60; n++) {
+	for (let n = 0; n < 160; n++) {
 		const vertical = rand() < 0.5;
 		const pos = Math.floor(rand() * size);
 		const start = rand() * size,
