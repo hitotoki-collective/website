@@ -27,7 +27,7 @@
 	const lead = $derived(data.stills[0]);
 	const LEAD_SIZES = '(min-width: 80rem) 72rem, 94vw';
 	const PHONE_MAX = '48rem';
-	const PHONE_CAP = 800;
+	const PHONE_CAP = 640;
 	// Preload the lead in the same two tiers LeadStill serves it in.
 	const preload = $derived.by(() => {
 		const avif = lead?.picture.sources.avif;
